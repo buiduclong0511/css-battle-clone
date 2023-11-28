@@ -1,0 +1,7 @@
+.sidebar-item.is-active .sidebar-item-icon {
+    @apply text-primary;
+}
+
+.sidebar-item.is-active .sidebar-item-text {
+    @apply text-highlight;
+}
