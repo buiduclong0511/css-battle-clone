@@ -11,7 +11,8 @@ const buttonClassNames = cx(
     "rounded-[999px]",
     "transition-all",
     "hover:translate-y-[-3px]",
-    "active:translate-y-0"
+    "active:translate-y-0",
+    "disabled:opacity-[0.4] disabled:pointer-events-none"
 );
 
 function Button({ className = "", href = "", ...props }) {
