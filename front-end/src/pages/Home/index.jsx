@@ -3,6 +3,7 @@ import ChallengeItem from "~/components/ChallengeItem";
 import FadeContainer from "~/components/FadeContainer";
 import Panel from "~/components/Panel";
 import Section from "~/components/Section";
+import TomorrowChallenge from "~/components/TomorrowChallenge";
 import Calendar from "~/components/icons/Calendar";
 import paths from "~/router/paths";
 import cx from "~/utils/cx";
@@ -28,16 +29,31 @@ function HomePage() {
                                 "px-[200px]"
                             )}
                         >
-                            {Array.from({ length: 30 }).map((item, index) => (
-                                <div
-                                    key={item}
-                                    className={cx("w-[236px]", {
-                                        "w-[320px]": index === 0,
-                                    })}
-                                >
-                                    <ChallengeItem active={index === 0} />
-                                </div>
-                            ))}
+                            {Array.from({ length: 20 }).map(
+                                (item, index, arr) => {
+                                    const active = index === arr.length - 1;
+                                    return (
+                                        <div
+                                            key={index}
+                                            className={cx("w-[236px]", {
+                                                "w-[320px]": active,
+                                            })}
+                                            ref={(ref) => {
+                                                if (active && ref) {
+                                                    ref.scrollIntoView({
+                                                        inline: "center",
+                                                    });
+                                                }
+                                            }}
+                                        >
+                                            <ChallengeItem active={active} />
+                                        </div>
+                                    );
+                                }
+                            )}
+                            <div className={cx("w-[236px]")}>
+                                <TomorrowChallenge />
+                            </div>
                         </div>
                     </Panel>
                 </FadeContainer>

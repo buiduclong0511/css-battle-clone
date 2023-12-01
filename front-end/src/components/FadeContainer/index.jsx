@@ -9,10 +9,12 @@ function FadeContainer({ className = "", deep = false, children }) {
                 "before:absolute before:top-0 before:left-0",
                 "before:bg-fade-before-overlay",
                 "before:pointer-events-none",
+                "before:z-10",
                 "after:w-[200px] after:h-full after:inline-block",
                 "after:absolute after:top-0 after:right-0",
                 "after:bg-fade-after-overlay",
                 "after:pointer-events-none",
+                "after:z-10",
                 {
                     "after:bg-fade-after-overlay-deep before:bg-fade-before-overlay-deep":
                         deep,

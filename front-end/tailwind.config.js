@@ -30,6 +30,7 @@ export default {
                 "task-active":
                     "0 0 30px rgba(255,223,0,0.3),0 0 0 2px #ffdf00,0px 10px 50px rgba(0,0,0,.5)",
                 "play-button": "inset 1px 1px 2px hsla(0,0%,100%,.1)",
+                "time-block": "0 10px 5px -5px rgba(0,0,0,.2)",
             },
             width: {
                 sidebar: "218px",

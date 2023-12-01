@@ -1,7 +1,7 @@
 import cx from "~/utils/cx";
+import { IconButton } from "../Button";
 import Tag from "../Tag";
 import Play from "../icons/Play";
-import { IconButton } from "../Button";
 
 function ChallengeItem({ active = false }) {
     return (
@@ -11,7 +11,7 @@ function ChallengeItem({ active = false }) {
                 className={cx(
                     "border-[2px] border-[#27313a]",
                     "rounded-[16px]",
-                    "p-[9px]",
+                    "p-[9px] w-full",
                     "transition-all",
                     "hover:scale-[1.05]",
                     "cursor-pointer",
@@ -20,11 +20,17 @@ function ChallengeItem({ active = false }) {
                     }
                 )}
             >
-                <img
-                    src="/images/target.png"
-                    alt=""
-                    className={cx("rounded-[8px]")}
-                />
+                <div className={cx("relative", "pt-[75%]")}>
+                    <img
+                        src="/images/target.png"
+                        alt=""
+                        className={cx(
+                            "rounded-[8px]",
+                            "absolute top-0 left-0",
+                            "w-full h-full"
+                        )}
+                    />
+                </div>
                 <div
                     className={cx(
                         "px-[16px] py-[8px] pt-[16px]",
@@ -42,11 +48,10 @@ function ChallengeItem({ active = false }) {
                         <p className={cx("text-[#a0b3c6]")}>Not played</p>
                     </div>
                     <IconButton
-                        className={cx(
-                            "bg-[#0060ca]",
-                            "text-[#fff]",
-                            "shadow-play-button"
-                        )}
+                        className={cx("shadow-play-button", {
+                            "bg-[#0060ca]": active,
+                            "text-[#fff]": active,
+                        })}
                     >
                         <Play />
                     </IconButton>
