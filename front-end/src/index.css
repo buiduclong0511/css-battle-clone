@@ -7,3 +7,24 @@ body {
     @apply bg-[#07080b];
     @apply text-[#a0b3c6] text-[16px];
 }
+
+body,
+html {
+    scrollbar-gutter: stable both-edges;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #555;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}

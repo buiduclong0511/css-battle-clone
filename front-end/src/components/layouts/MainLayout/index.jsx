@@ -10,14 +10,14 @@ function MainLayout({ children }) {
                 <div className={cx("w-sidebar")}>
                     <Sidebar />
                 </div>
-                <div
+                <main
                     className={cx(
-                        "flex-1 flex flex-col",
-                        "min-h-[calc(100vh-60px)]"
+                        "flex flex-col",
+                        "w-[calc(100vw-218px)] min-h-[calc(100vh-60px)] p-main-layout"
                     )}
                 >
-                    <main className={cx("flex-1", "p-[32px]")}>{children}</main>
-                </div>
+                    {children}
+                </main>
             </div>
         </div>
     );

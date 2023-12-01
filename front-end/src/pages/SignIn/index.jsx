@@ -95,6 +95,7 @@ function SignInPage() {
                 </div>
             </div>
             <FadeContainer
+                deep
                 className={cx(
                     "absolute bottom-0 left-0",
                     "w-full h-[120px]",
