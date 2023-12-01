@@ -8,6 +8,7 @@ const paths = {
         battles: "/battles",
         leaderBoard: "/leader-board",
         learnCss: "/learn-css",
+        challenge: "/challenge/:id",
     },
 };
 
