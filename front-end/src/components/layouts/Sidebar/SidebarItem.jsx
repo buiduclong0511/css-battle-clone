@@ -29,10 +29,10 @@ function SidebarItem({
                     "flex justify-center",
                     "w-[20px]",
                     "group-hover:translate-x-[-3px]",
-                    "text-secondary",
-                    "group-hover:text-primary",
+                    "text-[#6b7b8e]",
+                    "group-hover:text-[#a0b3c6]",
                     "transition-all",
-                    { "text-primary": active }
+                    { "text-[#a0b3c6]": active }
                 )}
             >
                 {icon}
@@ -40,10 +40,10 @@ function SidebarItem({
             <span
                 className={cx(
                     "sidebar-item-text",
-                    "group-hover:text-highlight",
+                    "group-hover:text-[#eff5fb]",
                     "transition-all",
                     {
-                        "text-highlight": active,
+                        "text-[#eff5fb]": active,
                     }
                 )}
             >
@@ -52,8 +52,8 @@ function SidebarItem({
             {!!badge && (
                 <span
                     className={cx(
-                        "bg-sidebar-item-badge",
-                        "text-brand text-[11px] uppercase",
+                        "bg-[rgba(255,223,0,0.15)]",
+                        "text-[rgb(255,223,0)] text-[11px] uppercase",
                         "shadow-sidebar-item-badge",
                         "inline-block px-[6px] py-[1px]",
                         "rounded-[4px]",

@@ -17,8 +17,8 @@ function SignInPage() {
         >
             <h1
                 className={cx(
-                    "text-heading text-[30px] font-[700]",
-                    "my-[32px]"
+                    "text-[#eff5fb] text-[30px] font-[700]",
+                    "mb-[32px]"
                 )}
             >
                 Sign up / Sign in
@@ -31,9 +31,9 @@ function SignInPage() {
                             placeholder="example@domain.com"
                             className={cx(
                                 "h-[53px] px-[18px]",
-                                "border border-input outline-none",
+                                "border border-[#323f4a] outline-none",
                                 "flex-1",
-                                "bg-input",
+                                "bg-[#0f1117]",
                                 "rounded-tl-[999px] rounded-bl-[999px]"
                             )}
                         />
@@ -59,14 +59,14 @@ function SignInPage() {
                         <span
                             className={cx(
                                 "inline-block w-[150px] h-[1px]",
-                                "bg-login-or-divider"
+                                "bg-[#323f4a]"
                             )}
                         />
-                        <span className={cx("text-highlight")}>OR</span>
+                        <span className={cx("text-[#eff5fb]")}>OR</span>
                         <span
                             className={cx(
                                 "inline-block w-[150px] h-[1px]",
-                                "bg-login-or-divider"
+                                "bg-[#323f4a]"
                             )}
                         />
                     </div>

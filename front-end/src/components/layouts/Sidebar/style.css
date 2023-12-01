@@ -1,7 +1,7 @@
 .sidebar-item.is-active .sidebar-item-icon {
-    @apply text-primary;
+    @apply text-[#a0b3c6];
 }
 
 .sidebar-item.is-active .sidebar-item-text {
-    @apply text-highlight;
+    @apply text-[#eff5fb];
 }

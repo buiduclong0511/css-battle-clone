@@ -14,7 +14,7 @@ function Header() {
                 "flex items-center justify-between",
                 "px-[24px]",
                 "bg-header",
-                "backdrop-blur-header"
+                "backdrop-blur-[20px]"
             )}
         >
             <img src={images.logo} alt="CSS Battle" />

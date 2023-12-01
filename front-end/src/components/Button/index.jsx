@@ -4,10 +4,10 @@ import cx from "~/utils/cx";
 
 const buttonClassNames = cx(
     "flex items-center gap-[4px]",
-    "text-button-label font-[600]",
-    "bg-button",
-    "hover:bg-button-hover",
-    "active:bg-button",
+    "text-[#fff] font-[600]",
+    "bg-[rgb(50,63,74)]",
+    "hover:bg-[rgb(50,63,74)]-hover",
+    "active:bg-[rgb(50,63,74)]",
     "rounded-[999px]",
     "transition-all",
     "hover:translate-y-[-3px]",

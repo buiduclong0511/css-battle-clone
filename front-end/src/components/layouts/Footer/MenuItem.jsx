@@ -4,7 +4,7 @@ import cx from "~/utils/cx";
 
 function MenuItem({ children, href = "" }) {
     return (
-        <Link className={cx("hover:underline", "text-highlight")} to={href}>
+        <Link className={cx("hover:underline", "text-[#eff5fb]")} to={href}>
             {children}
         </Link>
     );

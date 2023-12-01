@@ -4,6 +4,6 @@
 
 body {
     @apply min-h-screen;
-    @apply bg-primary;
-    @apply text-primary text-[16px];
+    @apply bg-[#07080b];
+    @apply text-[#a0b3c6] text-[16px];
 }

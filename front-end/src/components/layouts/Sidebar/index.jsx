@@ -13,7 +13,7 @@ function Sidebar() {
             className={cx(
                 "fixed top-[60px] left-0",
                 "w-sidebar h-[calc(100vh-60px)] pt-[16px]",
-                "border-r border-r-sidebar",
+                "border-r border-r-[#20262e]",
                 "bg-sidebar"
             )}
         >
@@ -25,7 +25,7 @@ function Sidebar() {
             <div
                 className={cx(
                     "my-[12px] py-[4px] pl-[32px]",
-                    "bg-section-heading",
+                    "bg-[#101217]",
                     "text-[14px] font-[500]"
                 )}
             >
