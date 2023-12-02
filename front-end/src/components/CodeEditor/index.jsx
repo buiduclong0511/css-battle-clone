@@ -119,6 +119,9 @@ function CodeEditor({ files = [], onChange = () => {} }) {
                 <Editor
                     height="100%"
                     theme="vs-dark"
+                    options={{
+                        fontSize: "18px",
+                    }}
                     beforeMount={(monaco) => {
                         setMonaco(monaco);
                         setFiles(

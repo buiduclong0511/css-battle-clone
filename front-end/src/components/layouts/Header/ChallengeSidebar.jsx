@@ -22,6 +22,7 @@ function ChallengeSidebar() {
                     "fixed top-[60px] left-0",
                     "w-screen h-screen",
                     "bg-[rgba(0,0,0,.2)]",
+                    "transition-all",
                     {
                         "opacity-0 invisible": !showSidebar,
                     }
