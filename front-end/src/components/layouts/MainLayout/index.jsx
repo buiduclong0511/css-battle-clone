@@ -8,7 +8,9 @@ function MainLayout({ children }) {
             <Header />
             <div className={cx("flex")}>
                 <div className={cx("w-sidebar")}>
-                    <Sidebar />
+                    <div className={cx("fixed top-[60px] left-0")}>
+                        <Sidebar />
+                    </div>
                 </div>
                 <main
                     className={cx(

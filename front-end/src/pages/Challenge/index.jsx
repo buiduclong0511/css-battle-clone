@@ -1,7 +1,10 @@
+import { useParams } from "react-router-dom";
 import CodeEditor from "~/components/CodeEditor";
 import defaultFileContent from "~/utils/defaultFileContent";
 
 function Challenge() {
+    const { id } = useParams();
+
     return (
         <CodeEditor
             files={[

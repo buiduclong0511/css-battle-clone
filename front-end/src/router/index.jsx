@@ -1,14 +1,15 @@
 import { createBrowserRouter } from "react-router-dom";
 
+import ChallengeLayout from "~/components/layouts/ChallengeLayout";
 import MainLayout from "~/components/layouts/MainLayout";
 import Challenge from "~/pages/Challenge";
 import HomePage from "~/pages/Home";
 import SignInPage from "~/pages/SignIn";
-import paths from "./paths";
+import webRoutes from "./webRoutes";
 
 const router = createBrowserRouter([
     {
-        path: paths.auth.signIn,
+        path: webRoutes.auth.signIn(),
         element: (
             <MainLayout>
                 <SignInPage />
@@ -16,7 +17,7 @@ const router = createBrowserRouter([
         ),
     },
     {
-        path: paths.public.home,
+        path: webRoutes.public.home(),
         element: (
             <MainLayout>
                 <HomePage />
@@ -24,11 +25,11 @@ const router = createBrowserRouter([
         ),
     },
     {
-        path: paths.public.challenge,
+        path: webRoutes.public.challenge(":id"),
         element: (
-            <MainLayout>
+            <ChallengeLayout>
                 <Challenge />
-            </MainLayout>
+            </ChallengeLayout>
         ),
     },
 ]);

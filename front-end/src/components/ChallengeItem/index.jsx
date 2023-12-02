@@ -1,12 +1,23 @@
+import dayjs from "dayjs";
+import { Link } from "react-router-dom";
+
+import webRoutes from "~/router/webRoutes";
 import cx from "~/utils/cx";
 import { IconButton } from "../Button";
 import Tag from "../Tag";
 import Play from "../icons/Play";
 
-function ChallengeItem({ active = false }) {
+function ChallengeItem({ active = false, data }) {
+    const createdAtString = dayjs(data.createdAt)
+        .format("MMM DD")
+        .toUpperCase();
+
     return (
-        <div className={cx("flex flex-col items-center gap-[16px]")}>
-            <Tag>NOV 26</Tag>
+        <Link
+            to={webRoutes.public.challenge(data.id)}
+            className={cx("flex flex-col items-center gap-[16px]")}
+        >
+            <Tag>{createdAtString}</Tag>
             <div
                 className={cx(
                     "border-[2px] border-[#27313a]",
@@ -22,7 +33,7 @@ function ChallengeItem({ active = false }) {
             >
                 <div className={cx("relative", "pt-[75%]")}>
                     <img
-                        src="/images/target.png"
+                        src={data.image}
                         alt=""
                         className={cx(
                             "rounded-[8px]",
@@ -57,7 +68,7 @@ function ChallengeItem({ active = false }) {
                     </IconButton>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 }
 
