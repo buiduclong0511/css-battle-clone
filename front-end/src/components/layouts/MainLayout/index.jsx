@@ -15,7 +15,7 @@ function MainLayout({ children }) {
                 <main
                     className={cx(
                         "flex flex-col",
-                        "w-[calc(100vw-218px)] min-h-[calc(100vh-60px)] p-main-layout"
+                        "w-[calc(100%-218px)] min-h-[calc(100vh-60px)] p-main-layout"
                     )}
                 >
                     {children}

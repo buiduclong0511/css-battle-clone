@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import cx from "~/utils/cx";
 
 const buttonClassNames = cx(
-    "flex items-center gap-[4px]",
+    "flex items-center justify-center gap-[4px]",
     "text-[#fff] font-[600]",
     "bg-[rgb(50,63,74)]",
     "hover:bg-[rgb(50,63,74)]-hover",

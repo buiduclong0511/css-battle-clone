@@ -11,7 +11,7 @@ import tasks from "~/utils/data";
 
 function HomePage() {
     return (
-        <div className={cx("h-[1000px]")}>
+        <div>
             <Section
                 icon={<Calendar className={cx("!w-[24px] !h-[24px]")} />}
                 title="Daily targets"

@@ -5,7 +5,7 @@ function ChallengeLayout({ children }) {
     return (
         <div className={cx("pt-main-layout")}>
             <Header challengeLayout />
-            <main>{children}</main>
+            <main className={cx("h-[calc(100vh-60px)]")}>{children}</main>
         </div>
     );
 }

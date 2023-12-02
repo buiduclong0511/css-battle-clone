@@ -31,13 +31,18 @@ export default {
                     "0 0 30px rgba(255,223,0,0.3),0 0 0 2px #ffdf00,0px 10px 50px rgba(0,0,0,.5)",
                 "play-button": "inset 1px 1px 2px hsla(0,0%,100%,.1)",
                 "time-block": "0 10px 5px -5px rgba(0,0,0,.2)",
+                "color-preview":
+                    "0 0 0 1px hsla(0,0%,100%,.25), 0 0 0 2px rgba(0,0,0,.8)",
             },
             width: {
                 sidebar: "218px",
+                target: "400px",
             },
             height: {
                 header: "60px",
                 footer: "40px",
+                target: "300px",
+                "challenge-tab-header": "32px",
             },
             padding: {
                 "main-layout": "60px",

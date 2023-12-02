@@ -1,6 +1,9 @@
 import Editor from "@monaco-editor/react";
 import { emmetCSS, emmetHTML } from "emmet-monaco-es";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+
+import cx from "~/utils/cx";
+import ChallengeTabHeader from "../ChallengeTabHeader";
 
 const emmet = {
     html: emmetHTML,
@@ -34,6 +37,11 @@ function CodeEditor({ files = [], onChange = () => {} }) {
         editor.focus();
     };
 
+    const charactersCount = useMemo(
+        () => files.reduce((prev, file) => prev + file.value.length, 0),
+        [files]
+    );
+
     useEffect(() => {
         if (editor && _files.length && !_files[0].isDisposed()) {
             const firstFile = _files[0];
@@ -46,7 +54,10 @@ function CodeEditor({ files = [], onChange = () => {} }) {
     useEffect(() => {
         _files.forEach((file) => {
             file.onDidChangeContent(() => {
-                onChange({ name: file.uri.path, content: file.getValue() });
+                onChange({
+                    name: file.uri.path.replace("/", ""),
+                    content: file.getValue(),
+                });
             });
         });
     }, [_files, onChange]);
@@ -67,41 +78,54 @@ function CodeEditor({ files = [], onChange = () => {} }) {
     }, [currentFile, monaco]);
 
     return (
-        <div>
-            <div>
-                {_files.map((file) => (
-                    <button
-                        key={file.uri.path}
-                        onClick={() => handleSwitchFile(file)}
-                    >
-                        {file.uri.path.replace("/", "")}
-                    </button>
-                ))}
-            </div>
-            <Editor
-                height="90vh"
-                theme="vs-dark"
-                beforeMount={(monaco) => {
-                    setMonaco(monaco);
-                    setFiles(
-                        files.map((file) => {
-                            const _file = monaco.editor.createModel(
-                                file.defaultValue,
-                                file.type,
-                                monaco.Uri.file(file.name)
-                            );
+        <div className={cx("flex flex-col", "h-full")}>
+            <ChallengeTabHeader
+                className={cx("p-0", "flex justify-between items-center")}
+            >
+                <div className={cx("h-full")}>
+                    {_files.map((file) => {
+                        const active = file.id === currentFile?.id;
+                        return (
+                            <button
+                                key={file.uri.path}
+                                onClick={() => handleSwitchFile(file)}
+                                className={cx("h-full px-[16px]", {
+                                    "bg-[#101418]": active,
+                                })}
+                            >
+                                {file.uri.path.replace("/", "")}
+                            </button>
+                        );
+                    })}
+                </div>
+                <span>{charactersCount} characters</span>
+            </ChallengeTabHeader>
+            <div className={cx("flex-1")}>
+                <Editor
+                    height="100%"
+                    theme="vs-dark"
+                    beforeMount={(monaco) => {
+                        setMonaco(monaco);
+                        setFiles(
+                            files.map((file) => {
+                                const _file = monaco.editor.createModel(
+                                    file.value,
+                                    file.type,
+                                    monaco.Uri.file(file.name)
+                                );
 
-                            return _file;
-                        })
-                    );
-                }}
-                onChange={() => {
-                    persistCursorPosition();
-                }}
-                onMount={(editor) => {
-                    setEditor(editor);
-                }}
-            />
+                                return _file;
+                            })
+                        );
+                    }}
+                    onChange={() => {
+                        persistCursorPosition();
+                    }}
+                    onMount={(editor) => {
+                        setEditor(editor);
+                    }}
+                />
+            </div>
         </div>
     );
 }
