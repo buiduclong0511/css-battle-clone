@@ -9,6 +9,8 @@ function Preview({ task, files = [] }) {
     const overlay = useRef(null);
     const iframe = useRef(null);
 
+    const firstTime = useRef(true);
+
     const handleMouseMove = useCallback((e) => {
         const { x } = e.target.getBoundingClientRect();
         const clientX = e.clientX;
@@ -26,32 +28,36 @@ function Preview({ task, files = [] }) {
         iframe.current.style.opacity = "1";
     }, []);
 
-    const injectCodeToIframe = useMemo(
-        () =>
-            debounce((files = []) => {
-                if (iframe.current) {
-                    const iframeDoc = iframe.current.contentWindow.document;
+    const injectCodeToIframe = useCallback((files = []) => {
+        if (iframe.current) {
+            const iframeDoc = iframe.current.contentWindow.document;
 
-                    const html = iframeDoc.querySelector("html");
-                    const htmlFile = files.find(
-                        (file) => file.name === "index.html"
-                    );
-                    const cssFile = files.find(
-                        (file) => file.name === "style.css"
-                    );
+            const html = iframeDoc.querySelector("html");
+            const htmlFile = files.find((file) => file.name === "index.html");
+            const cssFile = files.find((file) => file.name === "style.css");
 
-                    html.innerHTML = htmlFile.value;
-                    const styleElement = iframeDoc.createElement("style");
-                    styleElement.innerHTML = cssFile.value;
-                    html.append(styleElement);
-                }
-            }, 800),
-        []
+            html.innerHTML = htmlFile.value;
+            const styleElement = iframeDoc.createElement("style");
+            styleElement.innerHTML = cssFile.value;
+            html.append(styleElement);
+        }
+    }, []);
+
+    const debouncedInjectCodeToIframe = useMemo(
+        () => debounce(injectCodeToIframe, 500),
+        [injectCodeToIframe]
     );
 
     useEffect(() => {
-        injectCodeToIframe(files);
+        if (firstTime.current) {
+            firstTime.current = false;
+            injectCodeToIframe(files);
+        }
     }, [files, injectCodeToIframe]);
+
+    useEffect(() => {
+        debouncedInjectCodeToIframe(files);
+    }, [debouncedInjectCodeToIframe, files]);
 
     return (
         <div>

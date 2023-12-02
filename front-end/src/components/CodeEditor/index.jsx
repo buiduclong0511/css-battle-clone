@@ -4,10 +4,17 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 import cx from "~/utils/cx";
 import ChallengeTabHeader from "../ChallengeTabHeader";
+import Css from "../icons/Css";
+import Html from "../icons/Html";
 
 const emmet = {
     html: emmetHTML,
     css: emmetCSS,
+};
+
+const icons = {
+    html: <Html />,
+    css: <Css />,
 };
 
 function CodeEditor({ files = [], onChange = () => {} }) {
@@ -80,19 +87,27 @@ function CodeEditor({ files = [], onChange = () => {} }) {
     return (
         <div className={cx("flex flex-col", "h-full")}>
             <ChallengeTabHeader
-                className={cx("p-0", "flex justify-between items-center")}
+                className={cx(
+                    "p-0 pr-[12px]",
+                    "flex justify-between items-center"
+                )}
             >
-                <div className={cx("h-full")}>
+                <div className={cx("h-full", "flex items-center")}>
                     {_files.map((file) => {
                         const active = file.id === currentFile?.id;
                         return (
                             <button
                                 key={file.uri.path}
                                 onClick={() => handleSwitchFile(file)}
-                                className={cx("h-full px-[16px]", {
-                                    "bg-[#101418]": active,
-                                })}
+                                className={cx(
+                                    "h-full px-[16px]",
+                                    "flex items-center gap-[4px]",
+                                    {
+                                        "bg-[#101418]": active,
+                                    }
+                                )}
                             >
+                                <span>{icons[file.getLanguageId()]}</span>
                                 {file.uri.path.replace("/", "")}
                             </button>
                         );
