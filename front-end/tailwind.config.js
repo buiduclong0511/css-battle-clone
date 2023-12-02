@@ -5,8 +5,6 @@ export default {
         extend: {
             backgroundImage: {
                 header: "linear-gradient(to right, rgb(24, 29, 35) 50%, rgba(0, 0, 0, 0))",
-                sidebar:
-                    "linear-gradient(175deg, rgb(29, 35, 43) 0px, rgba(24, 29, 35, 0.7) 85%)",
                 "sidebar-item-active":
                     "linear-gradient(95.67deg, rgb(53, 63, 73) 0px, rgba(53, 63, 73, 0) 92.54%)",
                 panel: "linear-gradient(94.5deg,rgba(29,35,43,.75) 0.19%,rgba(24,29,35,.563))",
@@ -19,6 +17,11 @@ export default {
                     "linear-gradient(to right,#13161b,transparent)",
                 "fade-after-overlay":
                     "linear-gradient(to left,#13161b,transparent)",
+                "sidebar-transparent":
+                    "linear-gradient(175deg, rgb(29, 35, 43) 0px, rgba(24, 29, 35, 0.7) 85%)",
+            },
+            backgroundColor: {
+                sidebar: "rgb(29, 35, 43)",
             },
             boxShadow: {
                 "online-signal":

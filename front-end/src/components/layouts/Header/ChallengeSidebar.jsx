@@ -37,7 +37,7 @@ function ChallengeSidebar() {
                     }
                 )}
             >
-                <Sidebar />
+                <Sidebar backgroundFill />
             </div>
         </div>
     );

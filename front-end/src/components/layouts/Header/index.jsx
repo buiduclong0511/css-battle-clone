@@ -1,15 +1,15 @@
+import dayjs from "dayjs";
 import { Link, useParams } from "react-router-dom";
 
 import images from "~/assets/images";
 import Button, { IconButton } from "~/components/Button";
+import Calendar from "~/components/icons/Calendar";
 import Light from "~/components/icons/Light";
+import useChallengeDetail from "~/hooks/challenge/useChallengeDetail";
 import webRoutes from "~/router/webRoutes";
 import cx from "~/utils/cx";
 import ChallengeSidebar from "./ChallengeSidebar";
 import OnlineSignal from "./OnlineSignal";
-import useChallengeDetail from "~/hooks/challenge/useChallengeDetail";
-import Calendar from "~/components/icons/Calendar";
-import dayjs from "dayjs";
 
 function Header({ challengeLayout = false }) {
     const { id } = useParams();

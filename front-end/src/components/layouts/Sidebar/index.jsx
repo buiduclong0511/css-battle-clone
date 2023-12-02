@@ -7,13 +7,17 @@ import webRoutes from "~/router/webRoutes";
 import cx from "~/utils/cx";
 import SidebarItem from "./SidebarItem";
 
-function Sidebar() {
+function Sidebar({ backgroundFill = false }) {
     return (
         <div
             className={cx(
                 "w-sidebar h-[calc(100vh-60px)] pt-[16px]",
                 "border-r border-r-[#20262e]",
-                "bg-sidebar"
+
+                {
+                    "bg-sidebar-transparent": !backgroundFill,
+                    "bg-sidebar": backgroundFill,
+                }
             )}
         >
             <SidebarItem
