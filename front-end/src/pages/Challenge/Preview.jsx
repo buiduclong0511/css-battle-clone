@@ -1,32 +1,46 @@
 import { debounce } from "lodash";
-import { useCallback, useEffect, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import ChallengeTabHeader from "~/components/ChallengeTabHeader";
 import Checkbox from "~/components/Checkbox";
 import cx from "~/utils/cx";
 
 function Preview({ task, files = [] }) {
+    const [isSlideCompare, setIsSlideCompare] = useState(true);
+    const [isDiff, setIsDiff] = useState(false);
+
     const overlay = useRef(null);
     const iframe = useRef(null);
 
     const firstTime = useRef(true);
 
-    const handleMouseMove = useCallback((e) => {
-        const { x } = e.target.getBoundingClientRect();
-        const clientX = e.clientX;
+    const handleMouseMove = useCallback(
+        (e) => {
+            if (!isSlideCompare) {
+                return;
+            }
 
-        const width = clientX - x < 0 ? 0 : clientX - x;
+            const { x } = e.target.getBoundingClientRect();
+            const clientX = e.clientX;
 
-        overlay.current.style.width = `${width}px`;
-        overlay.current.style.borderRight = "1px solid #f00";
-        iframe.current.style.opacity = "0.8";
-    }, []);
+            const width = clientX - x < 0 ? 0 : clientX - x;
+
+            overlay.current.style.width = `${width}px`;
+            overlay.current.style.borderRight = "1px solid #f00";
+            iframe.current.style.opacity = "0.8";
+        },
+        [isSlideCompare]
+    );
 
     const handleMouseLeave = useCallback(() => {
+        if (!isSlideCompare) {
+            return;
+        }
+
         overlay.current.style.width = "400px";
         overlay.current.style.borderRight = "none";
         iframe.current.style.opacity = "1";
-    }, []);
+    }, [isSlideCompare]);
 
     const injectCodeToIframe = useCallback((files = []) => {
         if (iframe.current) {
@@ -66,17 +80,27 @@ function Preview({ task, files = [] }) {
             >
                 <span>Code output</span>
                 <div className={cx("flex items-center gap-[16px]")}>
-                    <Checkbox id="slide-and-compare">Slide & Compare</Checkbox>
-                    <Checkbox id="diff">Diff</Checkbox>
+                    <Checkbox
+                        checked={isSlideCompare}
+                        onChange={() => setIsSlideCompare(!isSlideCompare)}
+                        id="slide-and-compare"
+                    >
+                        Slide & Compare
+                    </Checkbox>
+                    <Checkbox
+                        checked={isDiff}
+                        onChange={() => setIsDiff(!isDiff)}
+                        id="diff"
+                    >
+                        Diff
+                    </Checkbox>
                 </div>
             </ChallengeTabHeader>
             <div className={cx("px-[16px] py-[12px]")}>
                 <div
-                    className={cx(
-                        "w-target h-target",
-                        "relative",
-                        "cursor-col-resize"
-                    )}
+                    className={cx("w-target h-target", "relative", {
+                        "cursor-col-resize": isSlideCompare,
+                    })}
                     onMouseMove={handleMouseMove}
                     onMouseLeave={handleMouseLeave}
                 >
@@ -90,7 +114,10 @@ function Preview({ task, files = [] }) {
                         className={cx(
                             "absolute top-0 left-0",
                             "w-full h-full",
-                            "overflow-hidden"
+                            "overflow-hidden",
+                            {
+                                "mix-blend-difference": isDiff,
+                            }
                         )}
                     >
                         <div
