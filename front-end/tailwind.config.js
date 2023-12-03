@@ -19,6 +19,11 @@ export default {
                     "linear-gradient(to left,#13161b,transparent)",
                 "sidebar-transparent":
                     "linear-gradient(175deg, rgb(29, 35, 43) 0px, rgba(24, 29, 35, 0.7) 85%)",
+                "daily-target-top-panel":
+                    "radial-gradient(82.25% 100% at 50% 0,rgba(29,35,43,.75) 37.28%,rgba(24,29,35,0) 100%)",
+                tabs: "linear-gradient(95.41deg,rgba(45,55,64,0.5) 0,rgba(39,45,52,0.5) 101.76%)",
+                "tab-indicator":
+                    "linear-gradient(95deg,rgb(45,55,64) 0,rgb(39,45,52) 100%)",
             },
             backgroundColor: {
                 sidebar: "rgb(29, 35, 43)",
@@ -36,6 +41,10 @@ export default {
                 "time-block": "0 10px 5px -5px rgba(0,0,0,.2)",
                 "color-preview":
                     "0 0 0 1px hsla(0,0%,100%,.25), 0 0 0 2px rgba(0,0,0,.8)",
+                "daily-target-top-panel":
+                    "0 0 30px rgba(255,223,0,0),0 20px 50px rgba(0,0,0,.1),inset 0 1px 3px hsla(0,0%,100%,.1)",
+                tabs: "0px 8px 20px rgba(0,0,0,.1),0px 24px 50px rgba(0,0,0,.15),inset 1px 1px 3px hsla(0,0%,100%,.1)",
+                "tab-indicator": "inset 1px 1px 2px hsla(0,0%,100%,.1)",
             },
             width: {
                 sidebar: "218px",

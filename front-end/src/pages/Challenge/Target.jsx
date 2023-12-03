@@ -1,10 +1,18 @@
+import { useCallback } from "react";
 import CopyToClipboard from "react-copy-to-clipboard";
+import { toast } from "react-toastify";
+
 import ChallengeTabHeader from "~/components/ChallengeTabHeader";
 import cx from "~/utils/cx";
 
 function ColorItem({ color }) {
+    const handleCopy = useCallback(
+        () => toast.info(`Color ${color} copied to clipboard!`),
+        [color]
+    );
+
     return (
-        <CopyToClipboard text={color}>
+        <CopyToClipboard text={color} onCopy={handleCopy}>
             <div
                 className={cx(
                     "group",
@@ -57,7 +65,7 @@ function Target({ task }) {
                 </div>
                 <div className={cx("grid grid-cols-3 gap-[8px]", "p-[12px]")}>
                     {task.colors.map((color) => (
-                        <ColorItem key={color} color={color} />
+                        <ColorItem key={color} color={color.toUpperCase()} />
                     ))}
                 </div>
             </div>

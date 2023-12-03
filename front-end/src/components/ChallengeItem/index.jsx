@@ -7,7 +7,7 @@ import { IconButton } from "../Button";
 import Tag from "../Tag";
 import Play from "../icons/Play";
 
-function ChallengeItem({ active = false, data }) {
+function ChallengeItem({ active = false, data, createdAtInline = false }) {
     const createdAtString = dayjs(data.createdAt)
         .format("MMM DD")
         .toUpperCase();
@@ -15,9 +15,9 @@ function ChallengeItem({ active = false, data }) {
     return (
         <Link
             to={webRoutes.public.challenge(data.id)}
-            className={cx("flex flex-col items-center gap-[16px]")}
+            className={cx("flex flex-col items-center gap-[16px]", "group")}
         >
-            <Tag>{createdAtString}</Tag>
+            {!createdAtInline && <Tag>{createdAtString}</Tag>}
             <div
                 className={cx(
                     "border-[2px] border-[#27313a]",
@@ -32,6 +32,19 @@ function ChallengeItem({ active = false, data }) {
                 )}
             >
                 <div className={cx("relative", "pt-[75%]")}>
+                    {createdAtInline && (
+                        <Tag
+                            className={cx(
+                                "absolute top-[10px] right-[10px] z-10",
+                                "bg-[#000]",
+                                "text-[#fff] font-[700]",
+                                "transition-all",
+                                "group-hover:opacity-0"
+                            )}
+                        >
+                            {createdAtString}
+                        </Tag>
+                    )}
                     <img
                         src={data.image}
                         alt=""

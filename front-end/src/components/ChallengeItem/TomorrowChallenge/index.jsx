@@ -1,9 +1,9 @@
 import dayjs from "dayjs";
 import images from "~/assets/images";
 import cx from "~/utils/cx";
-import CountDown from "../CountDown";
-import Tag from "../Tag";
-import Lock from "../icons/Lock";
+import CountDown from "../../CountDown";
+import Tag from "../../Tag";
+import Lock from "../../icons/Lock";
 
 function TomorrowChallenge() {
     let tomorrow = dayjs().add(1, "day");
@@ -19,7 +19,8 @@ function TomorrowChallenge() {
                     "border-[2px] border-[#27313a]",
                     "rounded-[16px]",
                     "p-[9px] w-full",
-                    "transition-all"
+                    "transition-all",
+                    "hover:scale-[1.05]"
                 )}
             >
                 <div className={cx("relative", "pt-[75%]", "tv-glitch")}>

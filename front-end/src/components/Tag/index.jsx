@@ -1,6 +1,6 @@
 import cx from "~/utils/cx";
 
-function Tag({ children }) {
+function Tag({ children, className = "" }) {
     return (
         <span
             className={cx(
@@ -8,7 +8,8 @@ function Tag({ children }) {
                 "text-[14px] text-[#cbd1e1]",
                 "bg-[#2d363f]",
                 "shadow-tag",
-                "rounded-[4px]"
+                "rounded-[4px]",
+                className
             )}
         >
             {children}
