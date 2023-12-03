@@ -36,6 +36,7 @@ function DailyTargets() {
                                     ref={(ref) => {
                                         if (active && ref) {
                                             ref.scrollIntoView({
+                                                block: "nearest",
                                                 inline: "center",
                                             });
                                         }
