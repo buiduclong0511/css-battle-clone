@@ -1,15 +1,34 @@
 const express = require("express");
+const cors = require("cors");
+const morgan = require("morgan");
+const httpStatus = require("http-status");
 
 const config = require("./config");
+const initRouter = require("./router");
+const errorHandler = require("./middlewares/errorHandler");
+const ApiError = require("./utils/ApiError");
 
 const app = express();
 
-app.get("/", (req, res) => {
-    return res.json({
-        data: true,
-    });
-});
+// Middlewares
+app.use(morgan("dev"));
+app.use(
+    cors({
+        origin: "http://localhost:3000",
+    })
+);
+app.use(express.json());
 
+// Router
+initRouter(app);
+
+// Catch exception
+app.use((req, res, next) => {
+    next(new ApiError(httpStatus.METHOD_NOT_ALLOWED, httpStatus["405_NAME"]));
+});
+app.use(errorHandler);
+
+// App listen
 app.listen(config.app.port, () => {
     console.log("App listening on port", config.app.port);
 });
