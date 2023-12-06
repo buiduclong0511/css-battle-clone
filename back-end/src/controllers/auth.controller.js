@@ -6,6 +6,10 @@ const catchAsync = require("../utils/catchAsync");
 const mailer = require("../utils/mailer");
 const ApiError = require("../utils/ApiError");
 const config = require("../config");
+const tokenService = require("../services/token.service");
+const userService = require("../services/user.service");
+const { getNameFromEmail } = require("../helpers");
+const { AUTH_PROVIDERS } = require("../constants");
 
 const getTokenKey = (email) => {
     return `${email}-sign-in`;
@@ -26,6 +30,7 @@ const signInWithEmail = catchAsync(async (req, res) => {
     }
 
     await mailer.sendMail({
+        subject: "[CSS Battle] Sign in request",
         to: email,
         html: `Link: ${config.clientOrigin}/confirm-sign-in?token=${token}`,
     });
@@ -44,14 +49,34 @@ const confirmSignInWithEmail = catchAsync(async (req, res) => {
         throw new ApiError(httpStatus.UNAUTHORIZED, httpStatus["401_NAME"]);
     }
 
+    let user = await userService.findByEmail(email);
+
+    if (!user) {
+        user = await userService.createUser({
+            displayName: getNameFromEmail(email),
+            email,
+            provider: AUTH_PROVIDERS.PASSWORD_LESS,
+        });
+    }
+
+    const jwt = tokenService.generateToken({ id: user.id });
+
     return res.json({
-        data: true,
+        data: user,
+        accessToken: jwt,
+    });
+});
+
+const getCurrentUser = catchAsync(async (req, res) => {
+    return res.json({
+        data: req.user,
     });
 });
 
 const authController = {
     signInWithEmail,
     confirmSignInWithEmail,
+    getCurrentUser,
 };
 
 module.exports = authController;

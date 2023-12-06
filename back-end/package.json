@@ -6,7 +6,11 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "dev": "nodemon src/index.js",
-        "start": "node src/index.js"
+        "start": "node src/index.js",
+        "sequelize-cli": "sequelize-cli",
+        "make:migration": "sequelize-cli migration:generate",
+        "migrate:rollback": "sequelize-cli db:migrate:undo",
+        "migrate": "sequelize-cli db:migrate"
     },
     "keywords": [],
     "author": "",
@@ -17,8 +21,11 @@
         "dotenv": "^16.3.1",
         "express": "^4.18.2",
         "http-status": "^1.7.3",
+        "jsonwebtoken": "^9.0.2",
+        "mysql2": "^3.6.5",
         "node-cache": "^5.1.2",
         "nodemailer": "^6.9.7",
+        "sequelize": "^6.35.1",
         "yup": "^1.3.2"
     },
     "devDependencies": {
@@ -26,6 +33,7 @@
         "eslint-config-airbnb-base": "^15.0.0",
         "eslint-plugin-import": "^2.25.2",
         "morgan": "^1.10.0",
-        "nodemon": "^3.0.2"
+        "nodemon": "^3.0.2",
+        "sequelize-cli": "^6.6.2"
     }
 }

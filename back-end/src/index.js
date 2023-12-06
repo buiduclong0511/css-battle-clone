@@ -7,6 +7,7 @@ const config = require("./config");
 const initRouter = require("./router");
 const errorHandler = require("./middlewares/errorHandler");
 const ApiError = require("./utils/ApiError");
+const sequelize = require("./models");
 
 const app = express();
 
@@ -29,6 +30,13 @@ app.use((req, res, next) => {
 app.use(errorHandler);
 
 // App listen
-app.listen(config.app.port, () => {
-    console.log("App listening on port", config.app.port);
-});
+sequelize
+    .authenticate()
+    .then(() => {
+        app.listen(config.app.port, () => {
+            console.log("App listening on port", config.app.port);
+        });
+    })
+    .catch((err) => {
+        console.error("Database connection failed.", err);
+    });
