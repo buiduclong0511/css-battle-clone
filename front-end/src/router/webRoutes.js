@@ -1,6 +1,7 @@
 const webRoutes = {
     auth: {
         signIn: () => "/sign-in",
+        confirmSignInWithEmail: () => "/confirm-sign-in",
     },
     public: {
         home: () => "/",

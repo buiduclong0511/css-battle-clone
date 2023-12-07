@@ -1,12 +1,24 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import Button from "~/components/Button";
 import FadeContainer from "~/components/FadeContainer";
 import Panel from "~/components/Panel";
 import Google from "~/components/icons/Google";
+import useSignInWithEmail from "~/hooks/auth/useSignInWithEmail";
 import cx from "~/utils/cx";
 
 function SignInPage() {
+    const [email, setEmail] = useState("buiduclong0511@gmail.com");
+
+    const { trigger: signInWithEmail, isLoading } = useSignInWithEmail({
+        onSuccess: () => {
+            setEmail("");
+            toast.success("Check your email inbox, please");
+        },
+    });
+
     return (
         <div
             className={cx(
@@ -27,8 +39,10 @@ function SignInPage() {
                 <Panel className={cx("min-w-[700px]")}>
                     <div className={cx("flex")}>
                         <input
+                            value={email}
                             type="text"
                             placeholder="example@domain.com"
+                            onChange={(e) => setEmail(e.target.value)}
                             className={cx(
                                 "h-[53px] px-[18px]",
                                 "border border-[#323f4a] outline-none",
@@ -42,6 +56,8 @@ function SignInPage() {
                                 "rounded-tl-none rounded-bl-none",
                                 "h-[53px]"
                             )}
+                            onClick={() => signInWithEmail(email.trim())}
+                            disabled={!email || isLoading}
                         >
                             Sign in with Email
                         </Button>

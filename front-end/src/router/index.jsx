@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import ChallengeLayout from "~/components/layouts/ChallengeLayout";
 import MainLayout from "~/components/layouts/MainLayout";
 import Challenge from "~/pages/Challenge";
+import ConfirmSignInWithEmail from "~/pages/ConfirmSignInWithEmail";
 import DailyTarget from "~/pages/DailyTargets";
 import HomePage from "~/pages/Home";
 import SignInPage from "~/pages/SignIn";
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
                 <DailyTarget />
             </MainLayout>
         ),
+    },
+    {
+        path: webRoutes.auth.confirmSignInWithEmail(),
+        element: <ConfirmSignInWithEmail />,
     },
 ]);
 
