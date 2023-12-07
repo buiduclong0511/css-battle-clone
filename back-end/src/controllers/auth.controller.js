@@ -32,7 +32,7 @@ const signInWithEmail = catchAsync(async (req, res) => {
     await mailer.sendMail({
         subject: "[CSS Battle] Sign in request",
         to: email,
-        html: `Link: ${config.clientOrigin}/confirm-sign-in?token=${token}`,
+        html: `Link: ${config.clientOrigin}/confirm-sign-in?token=${token}&email=${email}`,
     });
 
     return res.json({
@@ -49,6 +49,7 @@ const confirmSignInWithEmail = catchAsync(async (req, res) => {
         throw new ApiError(httpStatus.UNAUTHORIZED, httpStatus["401_NAME"]);
     }
 
+    cache.del(getTokenKey(email));
     let user = await userService.findByEmail(email);
 
     if (!user) {

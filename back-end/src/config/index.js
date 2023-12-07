@@ -4,7 +4,7 @@ const config = {
     app: {
         port: env.number("PORT", 8080),
     },
-    clientOrigin: env.string("CLIENT_ORIGIN", "http://localhost:3000"),
+    clientOrigin: env.string("CLIENT_ORIGIN", "http://localhost:5173"),
     mail: {
         username: env.string("MAIL_USERNAME"),
         password: env.string("MAIL_PASSWORD"),
