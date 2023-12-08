@@ -1,6 +1,9 @@
 const { object, string } = require("yup");
 
 const signInSchema = object({ email: string().email().required() }).required();
+
+const signInWithTokenSchema = object({ token: string().required() }).required();
+
 const confirmSignInSchema = object({
     email: string().email().required(),
     token: string().required(),
@@ -8,6 +11,7 @@ const confirmSignInSchema = object({
 
 const authSchemas = {
     signInSchema,
+    signInWithTokenSchema,
     confirmSignInSchema,
 };
 

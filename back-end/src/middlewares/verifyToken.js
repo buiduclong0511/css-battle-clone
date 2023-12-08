@@ -25,7 +25,9 @@ const verifyToken = async (req, res, next) => {
 
         next();
     } catch (err) {
-        return next(err);
+        return next(
+            new ApiError(httpStatus.UNAUTHORIZED, httpStatus["401_CLASS"])
+        );
     }
 };
 

@@ -1,6 +1,8 @@
 const crypto = require("crypto");
 const httpStatus = require("http-status");
+const { getAuth } = require("firebase-admin/auth");
 
+const firebaseApp = require("../firebase");
 const cache = require("../utils/cache");
 const catchAsync = require("../utils/catchAsync");
 const mailer = require("../utils/mailer");
@@ -53,7 +55,7 @@ const confirmSignInWithEmail = catchAsync(async (req, res) => {
     let user = await userService.findByEmail(email);
 
     if (!user) {
-        user = await userService.createUser({
+        user = await userService.create({
             displayName: getNameFromEmail(email),
             email,
             provider: AUTH_PROVIDERS.PASSWORD_LESS,
@@ -63,7 +65,6 @@ const confirmSignInWithEmail = catchAsync(async (req, res) => {
     const jwt = tokenService.generateToken({ id: user.id });
 
     return res.json({
-        data: user,
         accessToken: jwt,
     });
 });
@@ -74,10 +75,45 @@ const getCurrentUser = catchAsync(async (req, res) => {
     });
 });
 
+const signInWithToken = catchAsync(async (req, res) => {
+    try {
+        const firebaseUser = await getAuth(firebaseApp).verifyIdToken(
+            req.body.token
+        );
+
+        let user = await userService.findByEmail(firebaseUser.email);
+
+        if (user && user.avatar !== firebaseUser.picture) {
+            await userService.updateById(user.id, {
+                avatar: firebaseUser.picture,
+            });
+        }
+
+        if (!user) {
+            user = await userService.create({
+                displayName: getNameFromEmail(firebaseUser.email),
+                email: firebaseUser.email,
+                provider: AUTH_PROVIDERS.GOOGLE,
+                avatar: firebaseUser.picture,
+            });
+        }
+
+        const jwt = tokenService.generateToken({ id: user.id });
+
+        return res.json({
+            accessToken: jwt,
+        });
+    } catch (err) {
+        console.log("🚀 ~ err:", err);
+        throw new ApiError(httpStatus.UNAUTHORIZED, httpStatus["401_NAME"]);
+    }
+});
+
 const authController = {
     signInWithEmail,
     confirmSignInWithEmail,
     getCurrentUser,
+    signInWithToken,
 };
 
 module.exports = authController;

@@ -17,6 +17,11 @@ authRouter.post(
     validateSchema(authSchemas.confirmSignInSchema),
     authController.confirmSignInWithEmail
 );
+authRouter.post(
+    "/sign-in-with-token",
+    validateSchema(authSchemas.signInWithTokenSchema),
+    authController.signInWithToken
+);
 authRouter.get("/current-user", verifyToken, authController.getCurrentUser);
 
 module.exports = authRouter;

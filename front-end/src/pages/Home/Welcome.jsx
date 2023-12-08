@@ -22,7 +22,7 @@ function Welcome() {
                 </p>
                 <Button
                     className={cx("mt-[14px]", "bg-[#0060ca]", "w-[180px]")}
-                    href={webRoutes.auth.signIn()}
+                    href={webRoutes.signIn()}
                 >
                     Sign In / Sign Up
                 </Button>

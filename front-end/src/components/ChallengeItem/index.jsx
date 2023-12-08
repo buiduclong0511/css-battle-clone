@@ -14,7 +14,7 @@ function ChallengeItem({ active = false, data, createdAtInline = false }) {
 
     return (
         <Link
-            to={webRoutes.public.challenge(data.id)}
+            to={webRoutes.challenge(data.id)}
             className={cx("flex flex-col items-center gap-[16px]", "group")}
         >
             {!createdAtInline && <Tag>{createdAtString}</Tag>}

@@ -1,15 +1,19 @@
 const User = require("../models/user.model");
 
-const createUser = async (data) => await User.create(data);
+const create = async (data) => await User.create(data);
 
 const findByEmail = async (email) => await User.findOne({ where: { email } });
 
 const findById = async (id) => await User.findOne({ where: { id } });
 
+const updateById = async (id, data) =>
+    await User.update(data, { where: { id } });
+
 const userService = {
-    createUser,
+    create,
     findByEmail,
     findById,
+    updateById,
 };
 
 module.exports = userService;

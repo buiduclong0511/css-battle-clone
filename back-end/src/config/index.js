@@ -24,10 +24,12 @@ const config = {
         database: env.string("DB_DATABASE_NAME", "css_battle_clone"),
         dialect: env.string("DB_DIALECT", "127.0.0.1"),
     },
+    cloudinary: {
+        domain: env.string("CLOUDINARY_DOMAIN"),
+        cloudName: env.string("CLOUDINARY_CLOUD_NAME"),
+        apiKey: env.string("CLOUDINARY_API_KEY"),
+        apiSecret: env.string("CLOUDINARY_API_SECRET"),
+    },
 };
-
-// DB_USERNAME=root
-// DB_PASSWORD=root@123
-// DB_DATABASE_NAME=css_battle_clone
 
 module.exports = config;

@@ -20,11 +20,7 @@ function Sidebar({ backgroundFill = false }) {
                 }
             )}
         >
-            <SidebarItem
-                icon={<Home />}
-                title="Home"
-                href={webRoutes.public.home()}
-            />
+            <SidebarItem icon={<Home />} title="Home" href={webRoutes.home()} />
             <div
                 className={cx(
                     "my-[12px] py-[4px] pl-[32px]",
@@ -38,23 +34,23 @@ function Sidebar({ backgroundFill = false }) {
                 icon={<Calendar />}
                 title="Daily targets"
                 badge="new"
-                href={webRoutes.public.dailyTargets()}
+                href={webRoutes.dailyTargets()}
             />
             <SidebarItem
                 icon={<Battle />}
                 title="Battles"
                 badge="1 upcoming"
-                href={webRoutes.public.battles()}
+                href={webRoutes.battles()}
             />
             <SidebarItem
                 icon={<Achievement />}
                 title="Leaderboard"
-                href={webRoutes.public.leaderBoard()}
+                href={webRoutes.leaderBoard()}
             />
             <SidebarItem
                 icon={<Learn />}
                 title="Learn CSS"
-                href={webRoutes.public.learnCss()}
+                href={webRoutes.learnCss()}
             />
         </div>
     );

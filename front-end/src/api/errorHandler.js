@@ -3,6 +3,12 @@ import { toast } from "react-toastify";
 
 const rules = [
     {
+        url: "/api/auth/current-user",
+        handlers: {
+            401: () => {},
+        },
+    },
+    {
         url: "/**/**",
         handlers: {
             500: () => {

@@ -19,7 +19,7 @@ function useSignInWithEmail({ onSuccess = () => {}, onError = () => {} } = {}) {
                         email,
                     }
                 );
-                onSuccess(res);
+                onSuccess(res.data);
             } catch (err) {
                 onError(err);
             } finally {

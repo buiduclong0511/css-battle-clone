@@ -1,21 +1,38 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import Button from "~/components/Button";
 import FadeContainer from "~/components/FadeContainer";
 import Panel from "~/components/Panel";
 import Google from "~/components/icons/Google";
+import STORAGE_KEYS from "~/constants";
+import useCurrentUser from "~/hooks/auth/useCurrentUser";
 import useSignInWithEmail from "~/hooks/auth/useSignInWithEmail";
+import useSignInWithGoogle from "~/hooks/auth/useSignInWithGoogle";
+import webRoutes from "~/router/webRoutes";
 import cx from "~/utils/cx";
+import storage from "~/utils/storage";
 
 function SignInPage() {
-    const [email, setEmail] = useState("buiduclong0511@gmail.com");
+    const [email, setEmail] = useState("");
+
+    const navigate = useNavigate();
 
     const { trigger: signInWithEmail, isLoading } = useSignInWithEmail({
         onSuccess: () => {
             setEmail("");
             toast.success("Check your email inbox, please");
+        },
+    });
+
+    const { mutate } = useCurrentUser();
+
+    const { trigger: signInWithGoogle } = useSignInWithGoogle({
+        onSuccess: (response) => {
+            storage.set(STORAGE_KEYS.TOKEN, response.accessToken);
+            mutate();
+            navigate(webRoutes.home(), { replace: true });
         },
     });
 
@@ -37,7 +54,13 @@ function SignInPage() {
             </h1>
             <div className={cx("relative")}>
                 <Panel className={cx("min-w-[700px]")}>
-                    <div className={cx("flex")}>
+                    <form
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                            signInWithEmail(email.trim());
+                        }}
+                        className={cx("flex")}
+                    >
                         <input
                             value={email}
                             type="text"
@@ -56,12 +79,12 @@ function SignInPage() {
                                 "rounded-tl-none rounded-bl-none",
                                 "h-[53px]"
                             )}
-                            onClick={() => signInWithEmail(email.trim())}
+                            type="submit"
                             disabled={!email || isLoading}
                         >
                             Sign in with Email
                         </Button>
-                    </div>
+                    </form>
                     <p className={cx("mt-[8px]")}>
                         This is a password-less login, so you don&apos;t need a
                         password.
@@ -87,7 +110,7 @@ function SignInPage() {
                         />
                     </div>
                     <div className={cx("flex justify-center")}>
-                        <Button>
+                        <Button onClick={signInWithGoogle}>
                             <Google /> <span>Sign in with Google</span>
                         </Button>
                     </div>

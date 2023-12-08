@@ -1,6 +1,8 @@
 import axios from "axios";
 
 import config from "~/config";
+import STORAGE_KEYS from "~/constants";
+import storage from "~/utils/storage";
 import errorHandler from "./errorHandler";
 
 const axiosClient = axios.create({
@@ -12,6 +14,12 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.request.use(
     function (config) {
+        const token = storage.get(STORAGE_KEYS.TOKEN);
+
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+
         return config;
     },
     function (error) {

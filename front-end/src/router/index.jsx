@@ -8,18 +8,21 @@ import DailyTarget from "~/pages/DailyTargets";
 import HomePage from "~/pages/Home";
 import SignInPage from "~/pages/SignIn";
 import webRoutes from "./webRoutes";
+import AuthMiddleware from "~/components/AuthMiddleware";
 
 const router = createBrowserRouter([
     {
-        path: webRoutes.auth.signIn(),
+        path: webRoutes.signIn(),
         element: (
-            <MainLayout>
-                <SignInPage />
-            </MainLayout>
+            <AuthMiddleware isAuthRoute>
+                <MainLayout>
+                    <SignInPage />
+                </MainLayout>
+            </AuthMiddleware>
         ),
     },
     {
-        path: webRoutes.public.home(),
+        path: webRoutes.home(),
         element: (
             <MainLayout>
                 <HomePage />
@@ -27,7 +30,7 @@ const router = createBrowserRouter([
         ),
     },
     {
-        path: webRoutes.public.challenge(":id"),
+        path: webRoutes.challenge(":id"),
         element: (
             <ChallengeLayout>
                 <Challenge />
@@ -35,7 +38,7 @@ const router = createBrowserRouter([
         ),
     },
     {
-        path: webRoutes.public.dailyTargets(),
+        path: webRoutes.dailyTargets(),
         element: (
             <MainLayout>
                 <DailyTarget />
@@ -43,7 +46,7 @@ const router = createBrowserRouter([
         ),
     },
     {
-        path: webRoutes.auth.confirmSignInWithEmail(),
+        path: webRoutes.confirmSignInWithEmail(),
         element: <ConfirmSignInWithEmail />,
     },
 ]);

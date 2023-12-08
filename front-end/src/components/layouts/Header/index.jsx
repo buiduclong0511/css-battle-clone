@@ -5,16 +5,22 @@ import images from "~/assets/images";
 import Button, { IconButton } from "~/components/Button";
 import Calendar from "~/components/icons/Calendar";
 import Light from "~/components/icons/Light";
+import useCurrentUser from "~/hooks/auth/useCurrentUser";
 import useChallengeDetail from "~/hooks/challenge/useChallengeDetail";
 import webRoutes from "~/router/webRoutes";
 import cx from "~/utils/cx";
 import ChallengeSidebar from "./ChallengeSidebar";
 import OnlineSignal from "./OnlineSignal";
+import UserMenu from "./UserMenu";
 
 function Header({ challengeLayout = false }) {
     const { id } = useParams();
 
-    const { data } = useChallengeDetail({ id: challengeLayout ? id : null });
+    const { data: currentUser } = useCurrentUser();
+
+    const { data: challenge } = useChallengeDetail({
+        id: challengeLayout ? id : null,
+    });
 
     return (
         <header
@@ -29,10 +35,10 @@ function Header({ challengeLayout = false }) {
         >
             <div className={cx("flex items-center gap-[16px]")}>
                 {challengeLayout && <ChallengeSidebar />}
-                <Link to={webRoutes.public.home()}>
+                <Link to={webRoutes.home()}>
                     <img src={images.logo} alt="CSS Battle" />
                 </Link>
-                {!!data && (
+                {!!challenge && (
                     <div
                         className={cx(
                             "flex items-center gap-[8px]",
@@ -41,7 +47,7 @@ function Header({ challengeLayout = false }) {
                         )}
                     >
                         <Link
-                            to={webRoutes.public.dailyTargets()}
+                            to={webRoutes.dailyTargets()}
                             className={cx("flex items-center gap-[8px]")}
                         >
                             <Calendar />
@@ -51,7 +57,7 @@ function Header({ challengeLayout = false }) {
                         </Link>
                         <span>&gt;</span>
                         <span className={cx("font-[700] text-[#fff]")}>
-                            {dayjs(data.createdAt).format("D/MM/YYYY")}
+                            {dayjs(challenge.createdAt).format("D/MM/YYYY")}
                         </span>
                     </div>
                 )}
@@ -63,9 +69,11 @@ function Header({ challengeLayout = false }) {
                 <IconButton>
                     <Light />
                 </IconButton>
-                <Button href={webRoutes.auth.signIn()}>
-                    Sign In / Sign Up
-                </Button>
+                {currentUser ? (
+                    <UserMenu />
+                ) : (
+                    <Button href={webRoutes.signIn()}>Sign In / Sign Up</Button>
+                )}
             </div>
         </header>
     );

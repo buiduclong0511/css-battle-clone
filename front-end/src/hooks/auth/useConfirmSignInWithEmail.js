@@ -11,7 +11,7 @@ function useConfirmSignInWithEmail({
         async ({ email, token }) => {
             try {
                 const res = await axiosClient.post(
-                    apiRoutes.auth.confirmSignInWithEmail(),
+                    apiRoutes.confirmSignInWithEmail(),
                     {
                         email,
                         token,

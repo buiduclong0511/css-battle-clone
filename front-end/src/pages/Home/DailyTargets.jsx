@@ -16,7 +16,7 @@ function DailyTargets() {
             title="Daily targets"
             description="A new target everyday for you to unwind. No leaderboards, no competition"
             rightButtons={[
-                <Button key="1" href={webRoutes.public.dailyTargets()}>
+                <Button key="1" href={webRoutes.dailyTargets()}>
                     View all daily targets
                 </Button>,
             ]}
