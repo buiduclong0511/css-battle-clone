@@ -104,7 +104,6 @@ const signInWithToken = catchAsync(async (req, res) => {
             accessToken: jwt,
         });
     } catch (err) {
-        console.log("🚀 ~ err:", err);
         throw new ApiError(httpStatus.UNAUTHORIZED, httpStatus["401_NAME"]);
     }
 });
