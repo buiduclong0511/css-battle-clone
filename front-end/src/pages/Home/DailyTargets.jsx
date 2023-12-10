@@ -5,11 +5,13 @@ import FadeContainer from "~/components/FadeContainer";
 import Panel from "~/components/Panel";
 import Section from "~/components/Section";
 import Calendar from "~/components/icons/Calendar";
+import useTasks from "~/hooks/task/useTask";
 import webRoutes from "~/router/webRoutes";
 import cx from "~/utils/cx";
-import tasks from "~/utils/data";
 
 function DailyTargets() {
+    const { data: tasks } = useTasks();
+
     return (
         <Section
             icon={<Calendar className={cx("!w-[24px] !h-[24px]")} />}
@@ -23,36 +25,43 @@ function DailyTargets() {
         >
             <FadeContainer className={cx("rounded-[16px] overflow-hidden")}>
                 <Panel className={cx("overflow-x-auto", "w-full")}>
-                    <div className={cx("inline-flex gap-[32px]", "px-[200px]")}>
-                        {tasks.map((task, index, arr) => {
-                            const active = index === arr.length - 1;
+                    {!!tasks && (
+                        <div
+                            className={cx(
+                                "inline-flex gap-[32px]",
+                                "px-[200px]"
+                            )}
+                        >
+                            {tasks.map((task, index, arr) => {
+                                const active = index === arr.length - 1;
 
-                            return (
-                                <div
-                                    key={index}
-                                    className={cx("w-[236px]", {
-                                        "w-[320px]": active,
-                                    })}
-                                    ref={(ref) => {
-                                        if (active && ref) {
-                                            ref.scrollIntoView({
-                                                block: "nearest",
-                                                inline: "center",
-                                            });
-                                        }
-                                    }}
-                                >
-                                    <ChallengeItem
-                                        active={active}
-                                        data={task}
-                                    />
-                                </div>
-                            );
-                        })}
-                        <div className={cx("w-[236px]")}>
-                            <TomorrowChallenge />
+                                return (
+                                    <div
+                                        key={index}
+                                        className={cx("w-[236px]", {
+                                            "w-[320px]": active,
+                                        })}
+                                        ref={(ref) => {
+                                            if (active && ref) {
+                                                ref.scrollIntoView({
+                                                    block: "nearest",
+                                                    inline: "center",
+                                                });
+                                            }
+                                        }}
+                                    >
+                                        <ChallengeItem
+                                            active={active}
+                                            data={task}
+                                        />
+                                    </div>
+                                );
+                            })}
+                            <div className={cx("w-[236px]")}>
+                                <TomorrowChallenge />
+                            </div>
                         </div>
-                    </div>
+                    )}
                 </Panel>
             </FadeContainer>
         </Section>

@@ -5,8 +5,9 @@ const apiRoutes = {
         getCurrentUser: () => "/api/auth/current-user",
         signInWithToken: () => "/api/auth/sign-in-with-token",
     },
-    challenge: {
-        show: (id) => `/challenges/${id}`,
+    task: {
+        show: (id) => `/api/tasks/${id}`,
+        index: () => "/api/tasks",
     },
 };
 

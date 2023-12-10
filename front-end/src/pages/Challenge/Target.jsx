@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 
 import ChallengeTabHeader from "~/components/ChallengeTabHeader";
 import cx from "~/utils/cx";
+import getImageLink from "~/utils/getImageLink";
 
 function ColorItem({ color }) {
     const handleCopy = useCallback(
@@ -50,7 +51,10 @@ function Target({ task }) {
                 <span>400px x 300px</span>
             </ChallengeTabHeader>
             <div className={cx("px-[16px] py-[12px]")}>
-                <img src={task.image} className={cx("w-target h-target")} />
+                <img
+                    src={getImageLink(task.image)}
+                    className={cx("w-target h-target")}
+                />
             </div>
             <div>
                 <div className={cx("pl-[12px]", "flex items-center gap-[8px]")}>

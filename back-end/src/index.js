@@ -20,6 +20,9 @@ app.use(
 );
 app.use(express.json());
 
+// Static file
+app.use(express.static("src/public"));
+
 // Router
 initRouter(app);
 

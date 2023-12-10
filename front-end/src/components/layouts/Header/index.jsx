@@ -6,7 +6,7 @@ import Button, { IconButton } from "~/components/Button";
 import Calendar from "~/components/icons/Calendar";
 import Light from "~/components/icons/Light";
 import useCurrentUser from "~/hooks/auth/useCurrentUser";
-import useChallengeDetail from "~/hooks/challenge/useChallengeDetail";
+import useTaskDetail from "~/hooks/task/useTaskDetail";
 import webRoutes from "~/router/webRoutes";
 import cx from "~/utils/cx";
 import ChallengeSidebar from "./ChallengeSidebar";
@@ -18,9 +18,7 @@ function Header({ challengeLayout = false }) {
 
     const { data: currentUser } = useCurrentUser();
 
-    const { data: challenge } = useChallengeDetail({
-        id: challengeLayout ? id : null,
-    });
+    const { data: task } = useTaskDetail(challengeLayout ? id : null);
 
     return (
         <header
@@ -38,7 +36,7 @@ function Header({ challengeLayout = false }) {
                 <Link to={webRoutes.home()}>
                     <img src={images.logo} alt="CSS Battle" />
                 </Link>
-                {!!challenge && (
+                {!!task && (
                     <div
                         className={cx(
                             "flex items-center gap-[8px]",
@@ -57,7 +55,7 @@ function Header({ challengeLayout = false }) {
                         </Link>
                         <span>&gt;</span>
                         <span className={cx("font-[700] text-[#fff]")}>
-                            {dayjs(challenge.createdAt).format("D/MM/YYYY")}
+                            {dayjs(task.createdAt).format("D/MM/YYYY")}
                         </span>
                     </div>
                 )}

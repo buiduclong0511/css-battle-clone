@@ -1,13 +1,13 @@
+import { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import Button from "~/components/Button";
 import CodeEditor from "~/components/CodeEditor";
+import useTaskDetail from "~/hooks/task/useTaskDetail";
 import cx from "~/utils/cx";
 import defaultFileContent from "~/utils/defaultFileContent";
 import Preview from "./Preview";
 import Target from "./Target";
-import useChallengeDetail from "~/hooks/challenge/useChallengeDetail";
-import { useCallback, useState } from "react";
-import Button from "~/components/Button";
 
 const defaultFiles = [
     {
@@ -27,7 +27,7 @@ function Challenge() {
 
     const [files, setFiles] = useState(defaultFiles);
 
-    const { data, isLoading } = useChallengeDetail({ id });
+    const { data, isLoading } = useTaskDetail(id);
 
     const handleChangeFiles = useCallback((changedData) => {
         setFiles((files) => {
