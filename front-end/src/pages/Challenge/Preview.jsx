@@ -4,7 +4,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import ChallengeTabHeader from "~/components/ChallengeTabHeader";
 import Checkbox from "~/components/Checkbox";
 import cx from "~/utils/cx";
-import getImageLink from "~/utils/getImageLink";
 
 function Preview({ task, files = [] }) {
     const [isSlideCompare, setIsSlideCompare] = useState(true);
@@ -107,7 +106,7 @@ function Preview({ task, files = [] }) {
                 >
                     <img
                         className={cx("absolute top-0 left-0", "w-full h-full")}
-                        src={getImageLink(task.image)}
+                        src={task.imageUrl}
                         alt=""
                     />
                     <div

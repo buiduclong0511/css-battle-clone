@@ -1,4 +1,4 @@
-const { Sequelize } = require("sequelize");
+const { DataTypes } = require("sequelize");
 
 const sequelize = require(".");
 
@@ -6,20 +6,32 @@ const Task = sequelize.define(
     "Task",
     {
         id: {
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             primaryKey: true,
-            unique: true,
-            allowNull: false,
-            autoIncrement: true,
+        },
+        colors: {
+            type: DataTypes.TEXT,
+        },
+        colorArray: {
+            type: DataTypes.VIRTUAL,
+            get() {
+                return JSON.parse(this.colors);
+            },
         },
         image: {
-            type: Sequelize.STRING,
+            type: DataTypes.STRING,
+        },
+        imageUrl: {
+            type: DataTypes.VIRTUAL,
+            get() {
+                return `http://localhost:8080${this.image}`;
+            },
         },
         createdAt: {
-            type: Sequelize.DATE,
+            type: DataTypes.DATE,
         },
         updatedAt: {
-            type: Sequelize.DATE,
+            type: DataTypes.DATE,
         },
     },
     {

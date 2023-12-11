@@ -17,6 +17,10 @@ module.exports = {
                 allowNull: false,
                 autoIncrement: true,
             },
+            colors: {
+                type: Sequelize.TEXT,
+                allowNull: false,
+            },
             image: {
                 type: Sequelize.STRING,
             },

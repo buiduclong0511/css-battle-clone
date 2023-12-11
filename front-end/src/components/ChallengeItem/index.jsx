@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 import webRoutes from "~/router/webRoutes";
 import cx from "~/utils/cx";
-import getImageLink from "~/utils/getImageLink";
 import { IconButton } from "../Button";
 import Tag from "../Tag";
 import Play from "../icons/Play";
@@ -47,7 +46,7 @@ function ChallengeItem({ active = false, data, createdAtInline = false }) {
                         </Tag>
                     )}
                     <img
-                        src={getImageLink(data.image)}
+                        src={data.imageUrl}
                         alt=""
                         className={cx(
                             "rounded-[8px]",
