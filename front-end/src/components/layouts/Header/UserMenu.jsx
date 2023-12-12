@@ -11,8 +11,8 @@ import cx from "~/utils/cx";
 function UserMenu() {
     const [isShowMenu, setIsShowMenu] = useState(false);
 
-    const { data: currentUser, mutate } = useCurrentUser();
-    const { trigger: signOut } = useSignOut({
+    const { currentUser, mutate } = useCurrentUser();
+    const { signOut } = useSignOut({
         onSuccess: () => {
             mutate();
         },

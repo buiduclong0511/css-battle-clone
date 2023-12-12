@@ -9,16 +9,16 @@ import useCurrentUser from "~/hooks/auth/useCurrentUser";
 import useTaskDetail from "~/hooks/task/useTaskDetail";
 import webRoutes from "~/router/webRoutes";
 import cx from "~/utils/cx";
-import ChallengeSidebar from "./ChallengeSidebar";
 import OnlineSignal from "./OnlineSignal";
+import TaskSidebar from "./TaskSidebar";
 import UserMenu from "./UserMenu";
 
-function Header({ challengeLayout = false }) {
+function Header({ taskLayout = false }) {
     const { id } = useParams();
 
-    const { data: currentUser } = useCurrentUser();
+    const { currentUser } = useCurrentUser();
 
-    const { data: task } = useTaskDetail(challengeLayout ? id : null);
+    const { data: task } = useTaskDetail(taskLayout ? id : null);
 
     return (
         <header
@@ -32,7 +32,7 @@ function Header({ challengeLayout = false }) {
             )}
         >
             <div className={cx("flex items-center gap-[16px]")}>
-                {challengeLayout && <ChallengeSidebar />}
+                {taskLayout && <TaskSidebar />}
                 <Link to={webRoutes.home()}>
                     <img src={images.logo} alt="CSS Battle" />
                 </Link>

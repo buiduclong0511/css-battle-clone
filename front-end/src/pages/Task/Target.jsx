@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { toast } from "react-toastify";
 
-import ChallengeTabHeader from "~/components/ChallengeTabHeader";
+import TaskTabHeader from "~/components/TaskTabHeader";
 import cx from "~/utils/cx";
 
 function ColorItem({ color }) {
@@ -43,12 +43,12 @@ function ColorItem({ color }) {
 function Target({ task }) {
     return (
         <div>
-            <ChallengeTabHeader
+            <TaskTabHeader
                 className={cx("flex items-center justify-between")}
             >
                 <span>Recreate this target</span>
                 <span>400px x 300px</span>
-            </ChallengeTabHeader>
+            </TaskTabHeader>
             <div className={cx("px-[16px] py-[12px]")}>
                 <img src={task.imageUrl} className={cx("w-target h-target")} />
             </div>

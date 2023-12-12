@@ -6,8 +6,10 @@ const Task = sequelize.define(
     "Task",
     {
         id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             primaryKey: true,
+            unique: true,
+            allowNull: false,
         },
         colors: {
             type: DataTypes.TEXT,

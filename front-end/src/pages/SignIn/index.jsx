@@ -19,7 +19,7 @@ function SignInPage() {
 
     const navigate = useNavigate();
 
-    const { trigger: signInWithEmail, isLoading } = useSignInWithEmail({
+    const { signInWithEmail, isLoading } = useSignInWithEmail({
         onSuccess: () => {
             setEmail("");
             toast.success("Check your email inbox, please");
@@ -28,7 +28,7 @@ function SignInPage() {
 
     const { mutate } = useCurrentUser();
 
-    const { trigger: signInWithGoogle } = useSignInWithGoogle({
+    const { signInWithGoogle } = useSignInWithGoogle({
         onSuccess: (response) => {
             storage.set(STORAGE_KEYS.TOKEN, response.accessToken);
             mutate();

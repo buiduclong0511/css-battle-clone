@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import ChallengeLayout from "~/components/layouts/ChallengeLayout";
+import TaskLayout from "~/components/layouts/TaskLayout";
 import MainLayout from "~/components/layouts/MainLayout";
-import Challenge from "~/pages/Challenge";
+import Task from "~/pages/Task";
 import ConfirmSignInWithEmail from "~/pages/ConfirmSignInWithEmail";
 import DailyTarget from "~/pages/DailyTargets";
 import HomePage from "~/pages/Home";
@@ -22,6 +22,10 @@ const router = createBrowserRouter([
         ),
     },
     {
+        path: webRoutes.confirmSignInWithEmail(),
+        element: <ConfirmSignInWithEmail />,
+    },
+    {
         path: webRoutes.home(),
         element: (
             <MainLayout>
@@ -30,11 +34,11 @@ const router = createBrowserRouter([
         ),
     },
     {
-        path: webRoutes.challenge(":id"),
+        path: webRoutes.task(":id"),
         element: (
-            <ChallengeLayout>
-                <Challenge />
-            </ChallengeLayout>
+            <TaskLayout>
+                <Task />
+            </TaskLayout>
         ),
     },
     {
@@ -44,10 +48,6 @@ const router = createBrowserRouter([
                 <DailyTarget />
             </MainLayout>
         ),
-    },
-    {
-        path: webRoutes.confirmSignInWithEmail(),
-        element: <ConfirmSignInWithEmail />,
     },
 ]);
 

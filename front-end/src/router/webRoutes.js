@@ -6,7 +6,10 @@ const webRoutes = {
     battles: () => "/battles",
     leaderBoard: () => "/leader-board",
     learnCss: () => "/learn-css",
-    challenge: (id) => `/challenges/${id}`,
+    task: (id) => `/tasks/${id}`,
+    profile: () => "/profile",
+    stats: () => "/stats",
+    settings: () => "/settings",
 };
 
 export default webRoutes;

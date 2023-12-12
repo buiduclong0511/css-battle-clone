@@ -3,7 +3,7 @@ import { emmetCSS, emmetHTML } from "emmet-monaco-es";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import cx from "~/utils/cx";
-import ChallengeTabHeader from "../ChallengeTabHeader";
+import TaskTabHeader from "../TaskTabHeader";
 import Css from "../icons/Css";
 import Html from "../icons/Html";
 
@@ -86,7 +86,7 @@ function CodeEditor({ files = [], onChange = () => {} }) {
 
     return (
         <div className={cx("flex flex-col", "h-full")}>
-            <ChallengeTabHeader
+            <TaskTabHeader
                 className={cx(
                     "p-0 pr-[12px]",
                     "flex justify-between items-center"
@@ -114,7 +114,7 @@ function CodeEditor({ files = [], onChange = () => {} }) {
                     })}
                 </div>
                 <span>{charactersCount} characters</span>
-            </ChallengeTabHeader>
+            </TaskTabHeader>
             <div className={cx("flex-1")}>
                 <Editor
                     height="100%"

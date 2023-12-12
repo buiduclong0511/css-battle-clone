@@ -1,11 +1,10 @@
-import ChallengeItem from "~/components/ChallengeItem";
-import TomorrowChallenge from "~/components/ChallengeItem/TomorrowChallenge";
+import TaskItem from "~/components/TaskItem";
+import TomorrowTask from "~/components/TaskItem/TomorrowTask";
 import Panel from "~/components/Panel";
 import Calendar from "~/components/icons/Calendar";
 import cx from "~/utils/cx";
-import tasks from "~/utils/data";
 
-function DailyTargetList() {
+function DailyTargetList({ tasks = [] }) {
     return (
         <div>
             <div className={cx("flex flex-col items-center gap-[8px]")}>
@@ -29,14 +28,16 @@ function DailyTargetList() {
                     "shadow-daily-target-top-panel"
                 )}
             >
+                {tasks.map((task, index) => (
+                    <div className={cx("w-[236px]")} key={task.id}>
+                        <TaskItem
+                            data={task}
+                            active={index === tasks.length - 1}
+                        />
+                    </div>
+                ))}
                 <div className={cx("w-[236px]")}>
-                    <ChallengeItem data={tasks[0]} />
-                </div>
-                <div className={cx("w-[320px]")}>
-                    <ChallengeItem data={tasks[1]} active />
-                </div>
-                <div className={cx("w-[236px]")}>
-                    <TomorrowChallenge />
+                    <TomorrowTask />
                 </div>
             </Panel>
         </div>

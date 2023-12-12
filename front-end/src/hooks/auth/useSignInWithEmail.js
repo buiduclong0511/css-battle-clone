@@ -31,7 +31,7 @@ function useSignInWithEmail({ onSuccess = () => {}, onError = () => {} } = {}) {
     );
 
     return {
-        trigger: signInWithEmail,
+        signInWithEmail,
         isLoading,
     };
 }

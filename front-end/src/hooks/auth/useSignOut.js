@@ -3,7 +3,7 @@ import storage from "~/utils/storage";
 
 function useSignOut({ onSuccess = () => {} } = {}) {
     return {
-        trigger: () => {
+        signOut: () => {
             storage.remove(STORAGE_KEYS.TOKEN);
             onSuccess();
         },

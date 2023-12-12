@@ -1,7 +1,7 @@
 import { debounce } from "lodash";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import ChallengeTabHeader from "~/components/ChallengeTabHeader";
+import TaskTabHeader from "~/components/TaskTabHeader";
 import Checkbox from "~/components/Checkbox";
 import cx from "~/utils/cx";
 
@@ -75,9 +75,7 @@ function Preview({ task, files = [] }) {
 
     return (
         <div>
-            <ChallengeTabHeader
-                className={cx("flex items-center justify-between")}
-            >
+            <TaskTabHeader className={cx("flex items-center justify-between")}>
                 <span>Code output</span>
                 <div className={cx("flex items-center gap-[16px]")}>
                     <Checkbox
@@ -95,7 +93,7 @@ function Preview({ task, files = [] }) {
                         Diff
                     </Checkbox>
                 </div>
-            </ChallengeTabHeader>
+            </TaskTabHeader>
             <div className={cx("px-[16px] py-[12px]")}>
                 <div
                     className={cx("w-target h-target", "relative", {

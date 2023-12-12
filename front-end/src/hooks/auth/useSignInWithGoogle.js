@@ -28,7 +28,7 @@ function useSignInWithGoogle({
     }, [onError, onSuccess]);
 
     return {
-        trigger: signInWithGoogle,
+        signInWithGoogle,
     };
 }
 

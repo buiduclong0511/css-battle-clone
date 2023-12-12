@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import useCurrentUser from "~/hooks/auth/useCurrentUser";
@@ -11,12 +11,7 @@ function AuthMiddleware({
 }) {
     const navigate = useNavigate();
 
-    const { data: currentUser, isLoading } = useCurrentUser();
-
-    const isAuthenticated = useMemo(
-        () => currentUser && !isLoading,
-        [currentUser, isLoading]
-    );
+    const { isAuthenticated } = useCurrentUser();
 
     useEffect(() => {
         if (!isAuthenticated && isPrivateRoute) {

@@ -1,8 +1,9 @@
 import { reverse } from "lodash";
 import { useMemo } from "react";
+
 import Button from "~/components/Button";
-import ChallengeItem from "~/components/ChallengeItem";
-import TomorrowChallenge from "~/components/ChallengeItem/TomorrowChallenge";
+import TaskItem from "~/components/TaskItem";
+import TomorrowTask from "~/components/TaskItem/TomorrowTask";
 import FadeContainer from "~/components/FadeContainer";
 import Panel from "~/components/Panel";
 import Section from "~/components/Section";
@@ -12,13 +13,13 @@ import webRoutes from "~/router/webRoutes";
 import cx from "~/utils/cx";
 
 function DailyTargets() {
-    const { data: tasks } = useTasks({
+    const { tasks } = useTasks({
         params: {
-            where: {},
+            limit: 7,
         },
     });
 
-    const revertedTasks = useMemo(() => reverse(tasks), [tasks]);
+    const reversedTasks = useMemo(() => reverse(tasks), [tasks]);
 
     return (
         <Section
@@ -33,43 +34,33 @@ function DailyTargets() {
         >
             <FadeContainer className={cx("rounded-[16px] overflow-hidden")}>
                 <Panel className={cx("overflow-x-auto", "w-full")}>
-                    {!!revertedTasks && (
-                        <div
-                            className={cx(
-                                "inline-flex gap-[32px]",
-                                "px-[200px]"
-                            )}
-                        >
-                            {revertedTasks.map((task, index, arr) => {
-                                const active = index === arr.length - 1;
+                    <div className={cx("inline-flex gap-[32px]", "px-[200px]")}>
+                        {reversedTasks.map((task, index, arr) => {
+                            const active = index === arr.length - 1;
 
-                                return (
-                                    <div
-                                        key={index}
-                                        className={cx("w-[236px]", {
-                                            "w-[320px]": active,
-                                        })}
-                                        ref={(ref) => {
-                                            if (active && ref) {
-                                                ref.scrollIntoView({
-                                                    block: "nearest",
-                                                    inline: "center",
-                                                });
-                                            }
-                                        }}
-                                    >
-                                        <ChallengeItem
-                                            active={active}
-                                            data={task}
-                                        />
-                                    </div>
-                                );
-                            })}
-                            <div className={cx("w-[236px]")}>
-                                <TomorrowChallenge />
-                            </div>
+                            return (
+                                <div
+                                    key={index}
+                                    className={cx("w-[236px]", {
+                                        "w-[320px]": active,
+                                    })}
+                                    ref={(ref) => {
+                                        if (active && ref) {
+                                            ref.scrollIntoView({
+                                                block: "nearest",
+                                                inline: "center",
+                                            });
+                                        }
+                                    }}
+                                >
+                                    <TaskItem active={active} data={task} />
+                                </div>
+                            );
+                        })}
+                        <div className={cx("w-[236px]")}>
+                            <TomorrowTask />
                         </div>
-                    )}
+                    </div>
                 </Panel>
             </FadeContainer>
         </Section>

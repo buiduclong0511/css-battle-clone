@@ -1,10 +1,10 @@
 import cx from "~/utils/cx";
 
-function ChallengeTabHeader({ children, className = "" }) {
+function TaskTabHeader({ children, className = "" }) {
     return (
         <div
             className={cx(
-                "h-challenge-tab-header px-[16px]",
+                "h-task-tab-header px-[16px]",
                 "bg-[#21272d]",
                 className
             )}
@@ -14,4 +14,4 @@ function ChallengeTabHeader({ children, className = "" }) {
     );
 }
 
-export default ChallengeTabHeader;
+export default TaskTabHeader;

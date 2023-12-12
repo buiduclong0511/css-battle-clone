@@ -11,11 +11,10 @@ module.exports = {
          */
         await queryInterface.createTable("tasks", {
             id: {
-                type: Sequelize.INTEGER,
+                type: Sequelize.STRING,
                 primaryKey: true,
                 unique: true,
                 allowNull: false,
-                autoIncrement: true,
             },
             colors: {
                 type: Sequelize.TEXT,

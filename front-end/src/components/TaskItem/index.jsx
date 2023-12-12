@@ -6,15 +6,29 @@ import cx from "~/utils/cx";
 import { IconButton } from "../Button";
 import Tag from "../Tag";
 import Play from "../icons/Play";
+import { useMemo } from "react";
 
-function ChallengeItem({ active = false, data, createdAtInline = false }) {
-    const createdAtString = dayjs(data.createdAt)
-        .format("MMM DD")
-        .toUpperCase();
+function TaskItem({ active = false, data, createdAtInline = false }) {
+    const createdAtString = useMemo(() => {
+        const day = dayjs(data.createdAt);
+        const date = day.get("date");
+        const month = day.get("month");
+        const year = day.get("year");
+        const today = dayjs();
+        const isToday =
+            date === today.get("date") &&
+            month === today.get("month") &&
+            year === today.get("year");
+        if (isToday) {
+            return `${day.format("MMM DD").toUpperCase()} (TODAY)`;
+        }
+
+        return day.format("MMM DD").toUpperCase();
+    }, [data.createdAt]);
 
     return (
         <Link
-            to={webRoutes.challenge(data.id)}
+            to={webRoutes.task(data.id)}
             className={cx("flex flex-col items-center gap-[16px]", "group")}
         >
             {!createdAtInline && <Tag>{createdAtString}</Tag>}
@@ -85,4 +99,4 @@ function ChallengeItem({ active = false, data, createdAtInline = false }) {
     );
 }
 
-export default ChallengeItem;
+export default TaskItem;

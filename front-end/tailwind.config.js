@@ -54,7 +54,7 @@ export default {
                 header: "60px",
                 footer: "40px",
                 target: "300px",
-                "challenge-tab-header": "40px",
+                "task-tab-header": "40px",
             },
             padding: {
                 "main-layout": "60px",

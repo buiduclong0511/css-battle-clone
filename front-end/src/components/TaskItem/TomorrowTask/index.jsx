@@ -5,7 +5,7 @@ import CountDown from "../../CountDown";
 import Tag from "../../Tag";
 import Lock from "../../icons/Lock";
 
-function TomorrowChallenge() {
+function TomorrowTask() {
     let tomorrow = dayjs().add(1, "day");
     tomorrow = tomorrow.set("hours", 8);
     tomorrow = tomorrow.set("minutes", 0);
@@ -59,4 +59,4 @@ function TomorrowChallenge() {
     );
 }
 
-export default TomorrowChallenge;
+export default TomorrowTask;

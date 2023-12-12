@@ -8,13 +8,15 @@ function useTasks({
     onSuccess = () => {},
     onError = () => {},
 } = {}) {
-    return useSWR(
-        apiRoutes.task.index(),
-        async (url) => {
+    const { data } = useSWR(
+        [apiRoutes.task.index(), params],
+        async ([url, params]) => {
             return (await axiosClient.get(url, { params })).data;
         },
         { onSuccess, onError }
     );
+
+    return { tasks: data ?? [] };
 }
 
 export default useTasks;

@@ -4,7 +4,7 @@ import Bar from "~/components/icons/Bar";
 import cx from "~/utils/cx";
 import Sidebar from "../Sidebar";
 
-function ChallengeSidebar() {
+function TaskSidebar() {
     const [showSidebar, setShowSidebar] = useState(false);
 
     const toggleSidebar = useCallback(
@@ -44,4 +44,4 @@ function ChallengeSidebar() {
     );
 }
 
-export default ChallengeSidebar;
+export default TaskSidebar;

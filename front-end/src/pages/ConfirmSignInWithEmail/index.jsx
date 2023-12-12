@@ -14,7 +14,7 @@ function ConfirmSignInWithEmail() {
     const token = query.get("token");
     const email = query.get("email");
 
-    const { trigger: confirm } = useConfirmSignInWithEmail({
+    const { confirm } = useConfirmSignInWithEmail({
         onSuccess: (response) => {
             storage.set(STORAGE_KEYS.TOKEN, response.accessToken);
             navigate(webRoutes.home(), { replace: true });

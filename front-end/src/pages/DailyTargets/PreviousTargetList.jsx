@@ -1,9 +1,8 @@
 import { useState } from "react";
 
-import ChallengeItem from "~/components/ChallengeItem";
+import TaskItem from "~/components/TaskItem";
 import Tabs from "~/components/Tabs";
 import cx from "~/utils/cx";
-import tasks from "~/utils/data";
 
 const tabItems = [
     {
@@ -20,7 +19,7 @@ const tabItems = [
     },
 ];
 
-function PreviousTargetList() {
+function PreviousTargetList({ tasks = [] }) {
     const [activeItem, setActiveItem] = useState("all_targets");
 
     return (
@@ -49,7 +48,7 @@ function PreviousTargetList() {
 
             <div className={cx("grid grid-cols-5 gap-[32px]", "mt-[32px]")}>
                 {tasks.map((task) => (
-                    <ChallengeItem key={task.id} data={task} createdAtInline />
+                    <TaskItem key={task.id} data={task} createdAtInline />
                 ))}
             </div>
         </div>

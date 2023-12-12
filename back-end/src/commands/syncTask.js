@@ -1,7 +1,9 @@
 const puppeteer = require("puppeteer");
 const Downloader = require("nodejs-file-downloader");
 const path = require("path");
+const fs = require("fs");
 const dayjs = require("dayjs");
+
 const Task = require("../models/task.model");
 
 const sleep = async (delay) => {
@@ -17,17 +19,25 @@ const CSS_BATTLE_ORIGIN = "https://cssbattle.dev";
 const addTask = async (info) => {
     const [date, month, year] = info.time.split("/");
 
-    const fileName = `task_${date}-${month}-${year}.png`;
+    const taskImagesFolder = path.resolve(
+        __dirname,
+        `../public/images/tasks/${info.id}`
+    );
+    if (!fs.existsSync(taskImagesFolder)) {
+        await fs.mkdir(taskImagesFolder, () => {});
+    }
+    const fileName = "target.png";
     const downloader = new Downloader({
         url: info.imageSrc,
-        directory: path.resolve(__dirname, "../public/images"),
+        directory: taskImagesFolder,
         fileName,
     });
 
     await downloader.download();
 
     const task = {
-        image: `/images/${fileName}`,
+        id: info.id,
+        image: `/images/tasks/${info.id}/${fileName}`,
         colors: JSON.stringify(info.colors),
         createdAt: dayjs(`${month}-${date}-${year}`).toISOString(),
         updatedAt: dayjs(`${month}-${date}-${year}`).toISOString(),
@@ -51,6 +61,15 @@ const run = async () => {
     }, CSS_BATTLE_ORIGIN);
 
     for (const [index, link] of links.entries()) {
+        const { pathname } = new URL(link);
+        const id = pathname.replace("/play/", "");
+        const task = await Task.findOne({ where: { id } });
+
+        if (task) {
+            console.log(`${index + 1}/${links.length}`);
+            continue;
+        }
+
         await page.goto(link);
         await sleep(2000);
         await page.evaluate(() => {
@@ -69,9 +88,11 @@ const run = async () => {
             const colors = Array.from(
                 document.querySelectorAll(".colors-list button")
             ).map((item) => item.textContent.trim());
+
             return { time, imageSrc, colors };
         });
-        await addTask(info);
+
+        await addTask({ ...info, id });
         console.log(`${index + 1}/${links.length}`);
     }
 

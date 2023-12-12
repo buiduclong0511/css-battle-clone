@@ -3,9 +3,11 @@ const taskService = require("../services/task.service");
 const catchAsync = require("../utils/catchAsync");
 
 const index = catchAsync(async (req, res) => {
+    const { limit = 30, order = [["createdAt", "desc"]] } = req.query;
+
     const tasks = await Task.findAll({
-        order: [["createdAt", "desc"]],
-        limit: 30,
+        order,
+        limit: Number(limit),
     });
 
     return res.json({

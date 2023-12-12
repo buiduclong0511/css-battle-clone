@@ -22,7 +22,7 @@ const defaultFiles = [
     },
 ];
 
-function Challenge() {
+function Task() {
     const { id } = useParams();
 
     const [files, setFiles] = useState(defaultFiles);
@@ -80,4 +80,4 @@ function Challenge() {
     );
 }
 
-export default Challenge;
+export default Task;

@@ -7,11 +7,11 @@ function useConfirmSignInWithEmail({
     onSuccess = () => {},
     onError = () => {},
 } = {}) {
-    const trigger = useCallback(
+    const confirm = useCallback(
         async ({ email, token }) => {
             try {
                 const res = await axiosClient.post(
-                    apiRoutes.confirmSignInWithEmail(),
+                    apiRoutes.auth.confirmSignInWithEmail(),
                     {
                         email,
                         token,
@@ -19,13 +19,14 @@ function useConfirmSignInWithEmail({
                 );
                 onSuccess(res);
             } catch (err) {
+                console.log("🚀 ~ err:", err);
                 onError(err);
             }
         },
         [onError, onSuccess]
     );
 
-    return { trigger };
+    return { confirm };
 }
 
 export default useConfirmSignInWithEmail;
