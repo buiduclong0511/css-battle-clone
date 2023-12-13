@@ -2,6 +2,7 @@ const env = require("../utils/env");
 
 const config = {
     app: {
+        host: env.string("HOST", "http://localhost"),
         port: env.number("PORT", 8080),
     },
     clientOrigin: env.string("CLIENT_ORIGIN", "http://localhost:5173"),

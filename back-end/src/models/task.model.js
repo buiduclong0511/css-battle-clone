@@ -1,6 +1,7 @@
 const { DataTypes } = require("sequelize");
 
 const sequelize = require(".");
+const config = require("../config");
 
 const Task = sequelize.define(
     "Task",
@@ -26,7 +27,7 @@ const Task = sequelize.define(
         imageUrl: {
             type: DataTypes.VIRTUAL,
             get() {
-                return `http://localhost:8080${this.image}`;
+                return `${config.app.host}:${config.app.port}${this.image}`;
             },
         },
         createdAt: {
