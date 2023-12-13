@@ -4,8 +4,6 @@ services:
     build:
       context: ./front-end
       dockerfile: Dockerfile
-    volumes:
-      - .:/css-battle-fe
     environment:
       - API_KEY=AIzaSyA8HC-ThMxX131sgcwKelEniyLvBndvSXk
       - AUTH_DOMAIN=css-battle-clone.firebaseapp.com
@@ -17,7 +15,6 @@ services:
       - REACT_APP_API_BASE_URL=back-end:8080
     ports:
       - 5173:5173
-    command: yarn dev -- --host 0.0.0.0 --port 5173
     depends_on:
       - back-end
     networks:
@@ -27,8 +24,6 @@ services:
     build:
       context: ./back-end
       dockerfile: Dockerfile
-    volumes:
-      - .:/css-battle-be
     environment:
       - MAIL_USERNAME=buiduclong0511@gmail.com
       - MAIL_PASSWORD=bcmtmqngcciewowk
@@ -42,7 +37,6 @@ services:
       - JWT_SECRET=shh
     ports:
       - 8080:8080
-    command: yarn migrate && yarn dev
     depends_on:
       - db
     networks:

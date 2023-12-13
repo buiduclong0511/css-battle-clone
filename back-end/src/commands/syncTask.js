@@ -47,7 +47,7 @@ const addTask = async (info) => {
 };
 
 const run = async () => {
-    const browser = await puppeteer.launch({ headless: false });
+    const browser = await puppeteer.launch({ headless: false, executablePath: '/usr/bin/google-chrome' });
     const page = await browser.newPage();
     await page.goto("https://cssbattle.dev/daily");
     await page.waitForNetworkIdle();

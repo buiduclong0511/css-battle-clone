@@ -1,6 +1,6 @@
-FROM node:18-alpine
-WORKDIR /css-battle-fe
-COPY ./package.json /css-battle-fe/package.json
-COPY ./yarn.lock /css-battle-fe/yarn.lock
+FROM node:18
+WORKDIR /app
+COPY . .
 EXPOSE 5173
-RUN yarn
+RUN npm i
+CMD npm run dev -- --host 0.0.0.0 --port 5173
