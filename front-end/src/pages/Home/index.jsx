@@ -1,6 +1,6 @@
-import { reverse } from "lodash";
 import { useMemo } from "react";
 
+import { reverse } from "~/helpers";
 import useCurrentUser from "~/hooks/auth/useCurrentUser";
 import useTasks from "~/hooks/task/useTasks";
 import cx from "~/utils/cx";

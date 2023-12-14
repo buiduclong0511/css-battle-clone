@@ -1,6 +1,6 @@
-import { reverse } from "lodash";
 import { useMemo } from "react";
 
+import { reverse } from "~/helpers";
 import useTasks from "~/hooks/task/useTasks";
 import DailyTargetList from "./DailyTargetList";
 import PreviousTargetList from "./PreviousTargetList";
