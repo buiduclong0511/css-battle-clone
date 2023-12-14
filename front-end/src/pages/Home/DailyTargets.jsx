@@ -1,26 +1,14 @@
-import { reverse } from "lodash";
-import { useMemo } from "react";
-
 import Button from "~/components/Button";
-import TaskItem from "~/components/TaskItem";
-import TomorrowTask from "~/components/TaskItem/TomorrowTask";
 import FadeContainer from "~/components/FadeContainer";
 import Panel from "~/components/Panel";
 import Section from "~/components/Section";
+import TaskItem from "~/components/TaskItem";
+import TomorrowTask from "~/components/TaskItem/TomorrowTask";
 import Calendar from "~/components/icons/Calendar";
-import useTasks from "~/hooks/task/useTasks";
 import webRoutes from "~/router/webRoutes";
 import cx from "~/utils/cx";
 
-function DailyTargets() {
-    const { tasks } = useTasks({
-        params: {
-            limit: 7,
-        },
-    });
-
-    const reversedTasks = useMemo(() => reverse(tasks), [tasks]);
-
+function DailyTargets({ tasks = [] }) {
     return (
         <Section
             icon={<Calendar className={cx("!w-[24px] !h-[24px]")} />}
@@ -35,7 +23,7 @@ function DailyTargets() {
             <FadeContainer className={cx("rounded-[16px] overflow-hidden")}>
                 <Panel className={cx("overflow-x-auto", "w-full")}>
                     <div className={cx("inline-flex gap-[32px]", "px-[200px]")}>
-                        {reversedTasks.map((task, index, arr) => {
+                        {tasks.map((task, index, arr) => {
                             const active = index === arr.length - 1;
 
                             return (
