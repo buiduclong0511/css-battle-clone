@@ -34,8 +34,13 @@ module.exports = {
                 allowNull: false,
                 defaultValue: 0,
             },
+            percentMatch: {
+                type: Sequelize.FLOAT,
+                allowNull: false,
+                defaultValue: 0,
+            },
             scores: {
-                type: Sequelize.INTEGER,
+                type: Sequelize.FLOAT,
                 allowNull: false,
                 defaultValue: 0,
             },

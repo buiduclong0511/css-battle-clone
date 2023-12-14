@@ -1,46 +1,69 @@
-import { useCallback, useState } from "react";
+import { useCallback, useMemo } from "react";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import Button from "~/components/Button";
 import CodeEditor from "~/components/CodeEditor";
+import useConfetti from "~/hooks/confetti/useConfetti";
+import useFiles from "~/hooks/editor/useFiles";
 import useTaskDetail from "~/hooks/task/useTaskDetail";
+import useCreateUserSolution from "~/hooks/userSolution/useCreateUserSolution";
 import cx from "~/utils/cx";
-import defaultFileContent from "~/utils/defaultFileContent";
 import Preview from "./Preview";
 import Target from "./Target";
-
-const defaultFiles = [
-    {
-        name: "index.html",
-        type: "html",
-        value: defaultFileContent.html,
-    },
-    {
-        name: "style.css",
-        type: "css",
-        value: defaultFileContent.css,
-    },
-];
 
 function Task() {
     const { id } = useParams();
 
-    const [files, setFiles] = useState(defaultFiles);
+    const { files, onChangeFiles } = useFiles();
 
-    const { data, isLoading } = useTaskDetail(id);
+    const { data, isLoading: isFetching } = useTaskDetail(id);
 
-    const handleChangeFiles = useCallback((changedData) => {
-        setFiles((files) => {
-            return files.map((file) => {
-                if (file.name !== changedData.name) {
-                    return file;
+    const { fire } = useConfetti();
+
+    const { createUserSolution, isLoading: isSubmitting } =
+        useCreateUserSolution({
+            onSuccess: ({ data }) => {
+                if (data.percentMatch === 100) {
+                    fire({ type: "fireworks" });
+                } else {
+                    fire();
                 }
-                return { ...file, value: changedData.content };
-            });
+                toast.success(
+                    `Your scores is ${data.scores} points with ${data.percentMatch}% match.`
+                );
+            },
+            onError: (error) => {
+                console.log("🚀 ~ error:", error);
+            },
         });
-    }, []);
 
-    if (isLoading) {
+    const htmlFile = useMemo(
+        () => files.find((file) => file.type === "html"),
+        [files]
+    );
+
+    const cssFile = useMemo(
+        () => files.find((file) => file.type === "css"),
+        [files]
+    );
+
+    const charactersCount = useMemo(
+        () => files.reduce((prev, file) => prev + file.value.length, 0),
+        [files]
+    );
+
+    const handleSubmit = useCallback(
+        () =>
+            createUserSolution({
+                taskId: id,
+                answers: { html: htmlFile.value, css: cssFile.value },
+                charactersCount,
+            }),
+        [charactersCount, createUserSolution, cssFile.value, htmlFile.value, id]
+    );
+
+    if (isFetching) {
         return null;
     }
 
@@ -55,7 +78,11 @@ function Task() {
         >
             <div className={cx("flex-1 flex flex-col")}>
                 <div className={cx("flex-1")}>
-                    <CodeEditor files={files} onChange={handleChangeFiles} />
+                    <CodeEditor
+                        files={files}
+                        charactersCount={charactersCount}
+                        onChange={onChangeFiles}
+                    />
                 </div>
                 <div
                     className={cx(
@@ -65,7 +92,11 @@ function Task() {
                     )}
                 >
                     <Button className={cx("flex-1")}>Top Solutions</Button>
-                    <Button className={cx("bg-[#0060ca]", "flex-1")}>
+                    <Button
+                        className={cx("bg-[#0060ca]", "flex-1")}
+                        disabled={isSubmitting}
+                        onClick={handleSubmit}
+                    >
                         Submit
                     </Button>
                 </div>

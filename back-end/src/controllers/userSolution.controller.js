@@ -16,9 +16,14 @@ const store = catchAsync(async (req, res) => {
         charactersCount: body.charactersCount,
     });
 
-    const scores = await userSolutionService.compare(userSolution);
+    const percentMatch = await userSolutionService.compare(userSolution);
+    const scores = await userSolutionService.calculateScores(
+        percentMatch,
+        body.charactersCount
+    );
 
-    userSolution.set("scores", scores);
+    userSolution.set("scores", Number(scores.toFixed(4)));
+    userSolution.set("percentMatch", Number(percentMatch.toFixed(2)));
     await userSolution.save();
 
     return res.json({

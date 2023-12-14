@@ -9,6 +9,9 @@ const apiRoutes = {
         show: (id) => `/api/tasks/${id}`,
         index: () => "/api/tasks",
     },
+    userSolution: {
+        create: () => "/api/user-solutions",
+    },
 };
 
 export default apiRoutes;

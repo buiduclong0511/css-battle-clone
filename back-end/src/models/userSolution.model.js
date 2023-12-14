@@ -29,8 +29,13 @@ const UserSolution = sequelize.define(
             allowNull: false,
             defaultValue: 0,
         },
+        percentMatch: {
+            type: DataTypes.FLOAT,
+            allowNull: false,
+            defaultValue: 0,
+        },
         scores: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.FLOAT,
             allowNull: false,
             defaultValue: 0,
         },
@@ -42,7 +47,7 @@ const UserSolution = sequelize.define(
         },
     },
     {
-        timestamps: false,
+        timestamps: true,
         tableName: "user_solutions",
     }
 );

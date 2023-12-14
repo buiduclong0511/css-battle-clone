@@ -1,6 +1,6 @@
 import Editor from "@monaco-editor/react";
 import { emmetCSS, emmetHTML } from "emmet-monaco-es";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import cx from "~/utils/cx";
 import TaskTabHeader from "../TaskTabHeader";
@@ -17,7 +17,7 @@ const icons = {
     css: <Css />,
 };
 
-function CodeEditor({ files = [], onChange = () => {} }) {
+function CodeEditor({ files = [], charactersCount = 0, onChange = () => {} }) {
     const [_files, setFiles] = useState([]);
     const [editor, setEditor] = useState(null);
     const [monaco, setMonaco] = useState(null);
@@ -43,11 +43,6 @@ function CodeEditor({ files = [], onChange = () => {} }) {
         }
         editor.focus();
     };
-
-    const charactersCount = useMemo(
-        () => files.reduce((prev, file) => prev + file.value.length, 0),
-        [files]
-    );
 
     useEffect(() => {
         if (editor && _files.length && !_files[0].isDisposed()) {

@@ -9,7 +9,13 @@ const Task = require("../models/task.model");
 const ApiError = require("../utils/ApiError");
 
 const captureSolution = async (imagePath, userSolutionId) => {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+        headless: "new",
+        defaultViewport: {
+            width: 400,
+            height: 300,
+        },
+    });
     const page = await browser.newPage();
 
     await page.goto(
@@ -57,8 +63,12 @@ const compare = async (userSolution) => {
     return 100 - rawMisMatchPercentage;
 };
 
+const calculateScores = (percentMatch, charactersCount) =>
+    percentMatch * 10 - charactersCount * 0.01;
+
 const userSolutionService = {
     compare,
+    calculateScores,
 };
 
 module.exports = userSolutionService;
