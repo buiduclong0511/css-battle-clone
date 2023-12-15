@@ -63,7 +63,7 @@ function Task() {
         [charactersCount, createUserSolution, cssFile.value, htmlFile.value, id]
     );
 
-    if (isFetching) {
+    if (isFetching || !data) {
         return null;
     }
 
