@@ -24,7 +24,7 @@ function Task() {
     const { createUserSolution, isLoading: isSubmitting } =
         useCreateUserSolution({
             onSuccess: ({ data }) => {
-                if (data.percentMatch === 100) {
+                if (data.percentMatch > 90) {
                     fire({ type: "fireworks" });
                 } else {
                     fire();
