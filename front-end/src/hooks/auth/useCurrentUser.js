@@ -23,6 +23,7 @@ function useCurrentUser({ onSuccess = () => {}, onError = () => {} } = {}) {
         },
         {
             refreshInterval: false,
+            dedupingInterval: 300000,
         }
     );
 
@@ -34,7 +35,6 @@ function useCurrentUser({ onSuccess = () => {}, onError = () => {} } = {}) {
 
         return isLoading || (!isLoading && !!data);
     }, [data, isLoading]);
-
 
     return {
         currentUser: data,

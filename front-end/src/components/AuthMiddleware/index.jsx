@@ -9,7 +9,7 @@ function AuthMiddleware({
     isPrivateRoute = false,
     isAuthRoute = false,
 }) {
-    const [isAuthenticating, setIsAuthenticating] = useState(true)
+    const [isAuthenticating, setIsAuthenticating] = useState(true);
 
     const navigate = useNavigate();
 
@@ -17,15 +17,15 @@ function AuthMiddleware({
 
     useEffect(() => {
         if (!isAuthenticated && isPrivateRoute) {
-            navigate(webRoutes.signIn(), {replace: true});
+            navigate(webRoutes.signIn(), { replace: true });
         } else if (isAuthenticated && isAuthRoute) {
-            navigate(webRoutes.home(), {replace: true});
+            navigate(webRoutes.home(), { replace: true });
         }
-        setIsAuthenticating(false)
+        setIsAuthenticating(false);
     }, [isAuthRoute, isAuthenticated, isPrivateRoute, navigate]);
 
     if (isAuthenticating) {
-        return null
+        return null;
     }
 
     return children;

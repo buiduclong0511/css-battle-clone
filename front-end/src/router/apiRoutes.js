@@ -5,6 +5,7 @@ const apiRoutes = {
         getCurrentUser: () => "/api/auth/current-user",
         signInWithToken: () => "/api/auth/sign-in-with-token",
         refreshToken: () => "/api/auth/refresh-token",
+        signOut: () => "/api/auth/sign-out",
     },
     task: {
         show: (id) => `/api/tasks/${id}`,

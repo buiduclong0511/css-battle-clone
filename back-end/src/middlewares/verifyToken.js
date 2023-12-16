@@ -1,4 +1,5 @@
 const httpStatus = require("http-status");
+const dayjs = require("dayjs");
 
 const tokenService = require("../services/token.service");
 const userService = require("../services/user.service");
@@ -35,7 +36,9 @@ const verifyToken = ({ required = true, type = TOKEN_TYPES.ACCESS } = {}) => {
             if (tokenType === type) {
                 user = await userService.findById(id);
             }
-        } catch (err) {}
+        } catch (err) {
+            user = null;
+        }
 
         req.user = user;
 
