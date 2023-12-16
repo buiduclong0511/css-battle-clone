@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import TaskTabHeader from "~/components/TaskTabHeader";
 import Checkbox from "~/components/Checkbox";
 import cx from "~/utils/cx";
+import TaskStatistic from "./TaskStatistic";
 
 function Preview({ task, files = [] }) {
     const [isSlideCompare, setIsSlideCompare] = useState(true);
@@ -134,6 +135,9 @@ function Preview({ task, files = [] }) {
                             title="Preview"
                         />
                     </div>
+                </div>
+                <div className={cx("mt-[32px]")}>
+                    <TaskStatistic task={task} />
                 </div>
             </div>
         </div>

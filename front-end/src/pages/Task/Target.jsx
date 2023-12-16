@@ -43,16 +43,14 @@ function ColorItem({ color }) {
 function Target({ task }) {
     return (
         <div>
-            <TaskTabHeader
-                className={cx("flex items-center justify-between")}
-            >
+            <TaskTabHeader className={cx("flex items-center justify-between")}>
                 <span>Recreate this target</span>
                 <span>400px x 300px</span>
             </TaskTabHeader>
             <div className={cx("px-[16px] py-[12px]")}>
                 <img src={task.imageUrl} className={cx("w-target h-target")} />
             </div>
-            <div>
+            <div className={cx("mt-[20px]")}>
                 <div className={cx("pl-[12px]", "flex items-center gap-[8px]")}>
                     <span className={cx("font-[600]")}>Colors</span>
                     <span

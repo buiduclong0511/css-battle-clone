@@ -1,7 +1,14 @@
 import { useCallback, useEffect, useRef } from "react";
+
+import { TAB_TYPES } from "~/constants";
 import cx from "~/utils/cx";
 
-function Tabs({ items = [], activeItem, onChange = () => {} }) {
+function Tabs({
+    items = [],
+    type = TAB_TYPES.CONTAINER,
+    activeItem,
+    onChange = () => {},
+}) {
     const indicator = useRef(null);
 
     const moveIndicator = useCallback(() => {
@@ -26,7 +33,13 @@ function Tabs({ items = [], activeItem, onChange = () => {} }) {
                 "shadow-tabs",
                 "p-[8px]",
                 "rounded-[16px]",
-                "overflow-hidden"
+                "overflow-hidden",
+                {
+                    "rounded-[999px]": type === TAB_TYPES.OUTLINE,
+                    "bg-transparent": type === TAB_TYPES.OUTLINE,
+                    "shadow-none": type === TAB_TYPES.OUTLINE,
+                    "border border-[#27313a]": type === TAB_TYPES.OUTLINE,
+                }
             )}
         >
             <div className={cx("relative", "flex")}>
@@ -38,7 +51,10 @@ function Tabs({ items = [], activeItem, onChange = () => {} }) {
                         "rounded-[8px]",
                         "bg-tab-indicator",
                         "shadow-tab-indicator",
-                        "w-full h-full"
+                        "w-full h-full",
+                        {
+                            "rounded-[999px]": type === TAB_TYPES.OUTLINE,
+                        }
                     )}
                 />
                 {items.map((item) => (
@@ -46,12 +62,16 @@ function Tabs({ items = [], activeItem, onChange = () => {} }) {
                         key={item.value}
                         id={`tab-${item.value}`}
                         className={cx(
-                            "inline-block px-[24px] py-[4px]",
+                            "flex-1 flex justify-center",
+                            "px-[24px] py-[4px]",
                             "relative z-10",
                             "cursor-pointer",
                             "whitespace-nowrap",
                             "transition-all",
-                            { "text-[#fff]": item.value === activeItem }
+                            {
+                                "text-[#fff]": item.value === activeItem,
+                                "text-[14px]": type === TAB_TYPES.OUTLINE,
+                            }
                         )}
                         onClick={() => onChange(item)}
                     >

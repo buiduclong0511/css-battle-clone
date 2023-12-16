@@ -62,6 +62,7 @@ export default {
             },
             animation: {
                 "online-signal": "pulse 2s infinite",
+                "fade-up": "fade-up 300ms forwards",
             },
             keyframes: {
                 pulse: {
@@ -76,6 +77,16 @@ export default {
                     "100%": {
                         transform: "scale(0.75)",
                         "box-shadow": "0 0 0 0 rgba(255, 223, 0, 0)",
+                    },
+                },
+                "fade-up": {
+                    "0%": {
+                        transform: "translateY(30px)",
+                        opacity: 0,
+                    },
+                    "100%": {
+                        transform: "translateY(0)",
+                        opacity: 1,
                     },
                 },
             },

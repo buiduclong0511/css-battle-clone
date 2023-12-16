@@ -1,6 +1,6 @@
 import { SWRConfig } from "swr";
 
-import STORAGE_KEYS from "~/constants";
+import { STORAGE_KEYS } from "~/constants";
 import apiRoutes from "~/router/apiRoutes";
 import storage from "~/utils/storage";
 

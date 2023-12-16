@@ -19,7 +19,6 @@ function Task() {
         useFiles();
 
     const { data, isLoading: isFetching } = useTaskDetail(id);
-    console.log("🚀 ~ data:", data);
 
     const { fire } = useConfetti();
 

@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 import axiosClient from "~/api";
-import STORAGE_KEYS from "~/constants";
+import { STORAGE_KEYS } from "~/constants";
 import { app } from "~/firebase";
 import apiRoutes from "~/router/apiRoutes";
 import webRoutes from "~/router/webRoutes";

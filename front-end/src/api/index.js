@@ -2,7 +2,7 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
 import config from "~/config";
-import STORAGE_KEYS from "~/constants";
+import { STORAGE_KEYS } from "~/constants";
 import apiRoutes from "~/router/apiRoutes";
 import storage from "~/utils/storage";
 import errorHandler from "./errorHandler";
