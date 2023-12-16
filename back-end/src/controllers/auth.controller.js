@@ -11,7 +11,7 @@ const config = require("../config");
 const tokenService = require("../services/token.service");
 const userService = require("../services/user.service");
 const { getNameFromEmail } = require("../helpers");
-const { AUTH_PROVIDERS } = require("../constants");
+const { AUTH_PROVIDERS, TOKEN_TYPES } = require("../constants");
 
 const getTokenKey = (email) => {
     return `${email}-sign-in`;
@@ -62,10 +62,15 @@ const confirmSignInWithEmail = catchAsync(async (req, res) => {
         });
     }
 
-    const jwt = tokenService.generateToken({ id: user.id });
+    const accessToken = tokenService.generateToken({ id: user.id });
+    const refreshToken = tokenService.generateToken(
+        { id: user.id },
+        { type: TOKEN_TYPES.REFRESH, ttl: config.jwt.refreshTtl }
+    );
 
     return res.json({
-        accessToken: jwt,
+        accessToken,
+        refreshToken,
     });
 });
 
@@ -98,14 +103,49 @@ const signInWithToken = catchAsync(async (req, res) => {
             });
         }
 
-        const jwt = tokenService.generateToken({ id: user.id });
+        const accessToken = tokenService.generateToken({ id: user.id });
+        const refreshToken = tokenService.generateToken(
+            { id: user.id },
+            { type: TOKEN_TYPES.REFRESH, ttl: config.jwt.refreshTtl }
+        );
 
         return res.json({
-            accessToken: jwt,
+            accessToken,
+            refreshToken,
         });
     } catch (err) {
         throw new ApiError(httpStatus.UNAUTHORIZED, httpStatus["401_NAME"]);
     }
+});
+
+const refreshToken = catchAsync(async (req, res) => {
+    const user = req.user;
+    const bearerToken = req.headers.authorization;
+    const token = bearerToken.replace("Bearer ", "");
+
+    const accessToken = tokenService.generateToken({ id: user.id });
+    const refreshToken = tokenService.generateToken(
+        { id: user.id },
+        { type: TOKEN_TYPES.REFRESH, ttl: config.jwt.refreshTtl }
+    );
+
+    tokenService.deactivateToken(token);
+
+    return res.json({
+        accessToken,
+        refreshToken,
+    });
+});
+
+const signOut = catchAsync(async (req, res) => {
+    const bearerToken = req.headers.authorization;
+    const token = bearerToken.replace("Bearer ", "");
+
+    await tokenService.deactivateToken(token);
+
+    return res.json({
+        data: true,
+    });
 });
 
 const authController = {
@@ -113,6 +153,8 @@ const authController = {
     confirmSignInWithEmail,
     getCurrentUser,
     signInWithToken,
+    refreshToken,
+    signOut,
 };
 
 module.exports = authController;

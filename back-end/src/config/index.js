@@ -11,10 +11,11 @@ const config = {
         password: env.string("MAIL_PASSWORD"),
     },
     auth: {
-        emailTokenTTL: env.number("EMAIL_TOKEN_TTL", 3600),
+        emailTokenTTL: env.number("EMAIL_TOKEN_TTL", 60 * 60), // default: 1 hour
     },
     jwt: {
-        ttl: env.number("JWT_TTL", 300),
+        ttl: env.number("JWT_TTL", 60 * 5), // default: 5 minutes
+        refreshTtl: env.number("JWT_REFRESH_TTL", 60 * 60 * 24 * 7), // default: 7 days
         secret: env.string("JWT_SECRET"),
     },
     database: {

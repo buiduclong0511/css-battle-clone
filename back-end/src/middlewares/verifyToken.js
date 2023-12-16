@@ -3,8 +3,10 @@ const httpStatus = require("http-status");
 const tokenService = require("../services/token.service");
 const userService = require("../services/user.service");
 const ApiError = require("../utils/ApiError");
+const { TOKEN_TYPES } = require("../constants");
+const BlacklistToken = require("../models/blacklistToken.model");
 
-const verifyToken = ({ required = true } = {}) => {
+const verifyToken = ({ required = true, type = TOKEN_TYPES.ACCESS } = {}) => {
     let user = null;
     return async (req, res, next) => {
         try {
@@ -17,10 +19,22 @@ const verifyToken = ({ required = true } = {}) => {
             }
 
             const token = bearerToken.replace("Bearer ", "");
+            const isBlacklisted = !!(await BlacklistToken.findOne({
+                where: { token },
+            }));
 
-            const { id } = tokenService.decodeToken(token);
+            if (isBlacklisted) {
+                throw new ApiError(
+                    httpStatus.UNAUTHORIZED,
+                    httpStatus["401_NAME"]
+                );
+            }
 
-            user = await userService.findById(id);
+            const { id, type: tokenType } = tokenService.decodeToken(token);
+
+            if (tokenType === type) {
+                user = await userService.findById(id);
+            }
         } catch (err) {}
 
         req.user = user;

@@ -3,4 +3,9 @@ const AUTH_PROVIDERS = {
     PASSWORD_LESS: "password_less",
 };
 
-module.exports = { AUTH_PROVIDERS };
+const TOKEN_TYPES = {
+    ACCESS: "access",
+    REFRESH: "refresh",
+};
+
+module.exports = { AUTH_PROVIDERS, TOKEN_TYPES };
