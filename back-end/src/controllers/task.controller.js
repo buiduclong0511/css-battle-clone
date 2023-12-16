@@ -21,9 +21,12 @@ const index = catchAsync(async (req, res) => {
 
 const show = catchAsync(async (req, res) => {
     const { id } = req.params;
+    const user = req.user;
 
     const task = await taskService.findById(id);
+
     const playedUsersCount = await userSolutionService.getPlayedUsersCount(id);
+
     const passedPlayedUsersCount =
         await userSolutionService.getPlayedUsersCount(id, {
             where: {
@@ -33,6 +36,14 @@ const show = catchAsync(async (req, res) => {
             },
         });
     const bestSolution = await userSolutionService.getBestSolution(id);
+
+    let myBestSolution = null;
+    if (user) {
+        myBestSolution = await userSolutionService.getBestSolution(id, {
+            where: { userId: user.id },
+        });
+    }
+
     const { avgScores, avgCharactersCount } =
         await userSolutionService.getAvgValues(id, {
             cols: ["scores", "charactersCount"],
@@ -44,6 +55,7 @@ const show = catchAsync(async (req, res) => {
         (passedPlayedUsersCount / playedUsersCount) * 100
     );
     task.setDataValue("bestSolution", bestSolution);
+    task.setDataValue("myBestSolution", myBestSolution);
     task.setDataValue("avgScores", Number(avgScores));
     task.setDataValue("avgCharactersCount", Number(avgCharactersCount));
 

@@ -72,9 +72,9 @@ const calculateScores = (percentMatch, charactersCount) => {
     return Math.max(0, scores);
 };
 
-const getBestSolution = async (taskId) => {
+const getBestSolution = async (taskId, { where = {} } = {}) => {
     const solution = await UserSolution.findOne({
-        where: { taskId },
+        where: { taskId, ...where },
         order: [["scores", "desc"]],
     });
 
