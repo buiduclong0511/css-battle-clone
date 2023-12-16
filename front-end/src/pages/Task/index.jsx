@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from "react";
+import { useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -15,9 +15,11 @@ import Target from "./Target";
 function Task() {
     const { id } = useParams();
 
-    const { files, onChangeFiles } = useFiles();
+    const { files, htmlFile, cssFile, charactersCount, onChangeFiles } =
+        useFiles();
 
     const { data, isLoading: isFetching } = useTaskDetail(id);
+    console.log("🚀 ~ data:", data);
 
     const { fire } = useConfetti();
 
@@ -37,21 +39,6 @@ function Task() {
                 console.log("🚀 ~ error:", error);
             },
         });
-
-    const htmlFile = useMemo(
-        () => files.find((file) => file.type === "html"),
-        [files]
-    );
-
-    const cssFile = useMemo(
-        () => files.find((file) => file.type === "css"),
-        [files]
-    );
-
-    const charactersCount = useMemo(
-        () => files.reduce((prev, file) => prev + file.value.length, 0),
-        [files]
-    );
 
     const handleSubmit = useCallback(
         () =>

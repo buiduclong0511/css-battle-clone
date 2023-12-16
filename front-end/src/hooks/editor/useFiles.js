@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 import defaultFileContent from "~/utils/defaultFileContent";
 
@@ -29,7 +29,22 @@ function useFiles({ defaultFiles = _defaultFiles } = {}) {
         });
     }, []);
 
-    return { files, onChangeFiles };
+    const htmlFile = useMemo(
+        () => files.find((file) => file.type === "html"),
+        [files]
+    );
+
+    const cssFile = useMemo(
+        () => files.find((file) => file.type === "css"),
+        [files]
+    );
+
+    const charactersCount = useMemo(
+        () => files.reduce((prev, file) => prev + file.value.length, 0),
+        [files]
+    );
+
+    return { files, htmlFile, cssFile, charactersCount, onChangeFiles };
 }
 
 export default useFiles;

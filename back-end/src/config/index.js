@@ -26,6 +26,9 @@ const config = {
         database: env.string("DB_DATABASE_NAME", "css_battle_clone"),
         dialect: env.string("DB_DIALECT", "127.0.0.1"),
     },
+    gamePlay: {
+        passPercent: env.number("GAME_PASS_PERCENT", 90),
+    },
 };
 
 module.exports = config;

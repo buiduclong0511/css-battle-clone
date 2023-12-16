@@ -1,3 +1,6 @@
 const getNameFromEmail = (email) => email.replace(/@.+$/, "");
 
-module.exports = { getNameFromEmail };
+const capitalizeString = (string) =>
+    string.charAt(0).toUpperCase() + string.slice(1);
+
+module.exports = { getNameFromEmail, capitalizeString };

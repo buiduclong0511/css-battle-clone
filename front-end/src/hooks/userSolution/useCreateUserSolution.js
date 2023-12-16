@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 
 import axiosClient from "~/api";
+import useLoading from "~/provider/LoadingProvider/hook";
 import apiRoutes from "~/router/apiRoutes";
 
 function useCreateUserSolution({
@@ -8,9 +9,11 @@ function useCreateUserSolution({
     onError = () => {},
 } = {}) {
     const [isLoading, setIsLoading] = useState(false);
+    const { showLoading, hideLoading } = useLoading();
 
     const createUserSolution = useCallback(
         async (body) => {
+            showLoading();
             setIsLoading(true);
             try {
                 const res = await axiosClient.post(
@@ -22,9 +25,10 @@ function useCreateUserSolution({
                 onError(err);
             } finally {
                 setIsLoading(false);
+                hideLoading();
             }
         },
-        [onError, onSuccess]
+        [hideLoading, onError, onSuccess, showLoading]
     );
 
     return {
