@@ -9,7 +9,7 @@ const userSolutionRouter = express.Router();
 
 userSolutionRouter.post(
     "/",
-    verifyToken,
+    verifyToken({ required: false }),
     validateSchema(userSolutionSchemas.createSchema),
     userSolutionController.store
 );

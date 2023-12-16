@@ -35,6 +35,7 @@ function useCurrentUser({ onSuccess = () => {}, onError = () => {} } = {}) {
         return isLoading || (!isLoading && !!data);
     }, [data, isLoading]);
 
+
     return {
         currentUser: data,
         isLoading,

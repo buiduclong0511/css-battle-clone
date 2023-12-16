@@ -22,6 +22,6 @@ authRouter.post(
     validateSchema(authSchemas.signInWithTokenSchema),
     authController.signInWithToken
 );
-authRouter.get("/current-user", verifyToken, authController.getCurrentUser);
+authRouter.get("/current-user", verifyToken(), authController.getCurrentUser);
 
 module.exports = authRouter;

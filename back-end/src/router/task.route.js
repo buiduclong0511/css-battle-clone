@@ -6,6 +6,6 @@ const verifyToken = require("../middlewares/verifyToken");
 const taskRouter = express.Router();
 
 taskRouter.get("/", taskController.index);
-taskRouter.get("/:id", verifyToken, taskController.show);
+taskRouter.get("/:id", verifyToken({ required: false }), taskController.show);
 
 module.exports = taskRouter;

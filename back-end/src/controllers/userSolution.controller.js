@@ -11,7 +11,7 @@ const store = catchAsync(async (req, res) => {
 
     const userSolution = await UserSolution.create({
         taskId: body.taskId,
-        userId: user.id,
+        userId: user?.id,
         answers: JSON.stringify(body.answers),
         charactersCount: body.charactersCount,
     });
@@ -25,6 +25,10 @@ const store = catchAsync(async (req, res) => {
     userSolution.set("scores", Number(scores.toFixed(4)));
     userSolution.set("percentMatch", Number(percentMatch.toFixed(2)));
     await userSolution.save();
+
+    if (!user) {
+        userSolution.destroy();
+    }
 
     return res.json({
         data: userSolution,

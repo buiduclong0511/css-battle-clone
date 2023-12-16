@@ -14,7 +14,7 @@ const UserSolution = sequelize.define(
         },
         userId: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: true,
         },
         taskId: {
             type: DataTypes.STRING,

@@ -3,12 +3,6 @@ import { toast } from "react-toastify";
 
 const rules = [
     {
-        url: "/api/auth/current-user",
-        handlers: {
-            401: () => {},
-        },
-    },
-    {
         url: "/**/**",
         handlers: {
             500: () => {
@@ -22,10 +16,6 @@ const rules = [
             403: () => {
                 // Error handle logic
                 toast.error("Forbidden");
-            },
-            401: () => {
-                // Error handle logic
-                toast.error("Unauthenticated");
             },
             400: () => {
                 // Error handle logic

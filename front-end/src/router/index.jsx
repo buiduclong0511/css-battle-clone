@@ -36,11 +36,9 @@ const router = createBrowserRouter([
     {
         path: webRoutes.task(":id"),
         element: (
-            <AuthMiddleware isPrivateRoute>
-                <TaskLayout>
-                    <Task />
-                </TaskLayout>
-            </AuthMiddleware>
+            <TaskLayout>
+                <Task />
+            </TaskLayout>
         ),
     },
     {

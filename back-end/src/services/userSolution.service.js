@@ -1,4 +1,5 @@
 const puppeteer = require("puppeteer");
+const crypto = require("crypto");
 const httpStatus = require("http-status");
 const path = require("path");
 const resemble = require("resemblejs");
@@ -63,8 +64,11 @@ const compare = async (userSolution) => {
     return 100 - rawMisMatchPercentage;
 };
 
-const calculateScores = (percentMatch, charactersCount) =>
-    percentMatch * 10 - charactersCount * 0.01;
+const calculateScores = (percentMatch, charactersCount) => {
+    const scores = percentMatch * 10 - charactersCount * 0.01;
+
+    return Math.max(0, scores);
+};
 
 const userSolutionService = {
     compare,
