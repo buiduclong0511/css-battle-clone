@@ -129,7 +129,7 @@ const refreshToken = catchAsync(async (req, res) => {
         { type: TOKEN_TYPES.REFRESH, ttl: config.jwt.refreshTtl }
     );
 
-    tokenService.deactivateToken(token);
+    await tokenService.deactivateToken(token);
 
     return res.json({
         accessToken,

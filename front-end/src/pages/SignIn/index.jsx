@@ -1,23 +1,17 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import Button from "~/components/Button";
 import FadeContainer from "~/components/FadeContainer";
 import Panel from "~/components/Panel";
 import Google from "~/components/icons/Google";
-import STORAGE_KEYS from "~/constants";
-import useCurrentUser from "~/hooks/auth/useCurrentUser";
 import useSignInWithEmail from "~/hooks/auth/useSignInWithEmail";
 import useSignInWithGoogle from "~/hooks/auth/useSignInWithGoogle";
-import webRoutes from "~/router/webRoutes";
 import cx from "~/utils/cx";
-import storage from "~/utils/storage";
 
 function SignInPage() {
     const [email, setEmail] = useState("");
-
-    const navigate = useNavigate();
 
     const { signInWithEmail, isLoading } = useSignInWithEmail({
         onSuccess: () => {
@@ -26,15 +20,7 @@ function SignInPage() {
         },
     });
 
-    const { mutate } = useCurrentUser();
-
-    const { signInWithGoogle } = useSignInWithGoogle({
-        onSuccess: (response) => {
-            storage.set(STORAGE_KEYS.TOKEN, response.accessToken);
-            mutate();
-            navigate(webRoutes.home(), { replace: true });
-        },
-    });
+    const { signInWithGoogle } = useSignInWithGoogle();
 
     return (
         <div

@@ -1,11 +1,11 @@
 const jsonwebtoken = require("jsonwebtoken");
+const httpStatus = require("http-status");
 const dayjs = require("dayjs");
 
 const BlacklistToken = require("../models/blacklistToken.model");
 const config = require("../config");
 const { TOKEN_TYPES } = require("../constants");
 const ApiError = require("../utils/ApiError");
-const httpStatus = require("http-status");
 
 const generateToken = (
     claims,
