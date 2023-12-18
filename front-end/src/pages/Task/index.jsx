@@ -18,7 +18,7 @@ function Task() {
     const { files, htmlFile, cssFile, charactersCount, onChangeFiles } =
         useFiles();
 
-    const { data, isLoading: isFetching } = useTaskDetail(id);
+    const { data, isLoading: isFetching, mutate } = useTaskDetail(id);
 
     const { fire } = useConfetti();
 
@@ -27,12 +27,13 @@ function Task() {
             onSuccess: ({ data }) => {
                 if (data.percentMatch > 90) {
                     fire({ type: "fireworks" });
-                } else {
+                } else if (data.percentMatch > 50) {
                     fire();
                 }
                 toast.success(
                     `Your scores is ${data.scores} points with ${data.percentMatch}% match.`
                 );
+                mutate();
             },
             onError: (error) => {
                 console.log("🚀 ~ error:", error);

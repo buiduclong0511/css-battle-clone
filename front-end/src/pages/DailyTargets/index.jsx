@@ -7,7 +7,7 @@ import PreviousTargetList from "./PreviousTargetList";
 
 function DailyTarget() {
     const { tasks: dailyTasks } = useTasks({ params: { limit: 2 } });
-    const { tasks: previousTasks } = useTasks({ params: { limit: 30 } });
+    const { tasks: previousTasks } = useTasks({ params: { limit: 27 } });
 
     const reversedDailyTasks = useMemo(() => reverse(dailyTasks), [dailyTasks]);
     const reversedPreviousTasks = useMemo(
