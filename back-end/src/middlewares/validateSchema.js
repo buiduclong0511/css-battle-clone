@@ -9,7 +9,7 @@ const validateSchema = (schema) => {
                 abortEarly: false,
             });
 
-            next();
+            return next();
         } catch (err) {
             const errors = err.inner.map((errorItem) => ({
                 path: errorItem.path,
